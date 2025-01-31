@@ -23,29 +23,28 @@ h6 {
   font-weight: bold;
   font-family: "Signika", serif;
 }
-
 /* Global Variables */
 :root {
-  --primary-color: #007aff;
-  --secondary-color: #34c759;
-  --background-color: #ffffff;
-  --surface-color: #f2f2f7;
-  --text-color: #1c1c1e;
-  --muted-text-color: #8e8e93;
+  --primary-color: #5f63f2; /* Modern, vibrant purple */
+  --secondary-color: #ff8a00; /* Trendy amber-orange */
+  --background-color: #f4f4f9; /* Light, neutral background */
+  --surface-color: #ffffff; /* Clean white surface */
+  --text-color: #333333; /* Dark, readable text */
+  --muted-text-color: #b0b0b0; /* Soft gray for muted text */
 }
 
 /* Dark Mode */
 [data-theme="dark"] {
-  --primary-color: #0a84ff;
-  --secondary-color: #30d158;
-  --background-color: #121212;
-  --surface-color: #1e1e1e;
-  --text-color: #eaeaea;
-  --muted-text-color: #a1a1a1;
+  --primary-color: #6a69f2; /* Lively purple for dark mode */
+  --secondary-color: #ffb400; /* Bright amber to contrast dark background */
+  --background-color: #181818; /* Dark background for a sleek look */
+  --surface-color: #222222; /* Slightly lighter surface for depth */
+  --text-color: #e0e0e0; /* Soft white text for contrast */
+  --muted-text-color: #a6a6a6; /* Gentle gray for muted text */
 }
+
 /* Other global styles */
 .container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 20px;
 }

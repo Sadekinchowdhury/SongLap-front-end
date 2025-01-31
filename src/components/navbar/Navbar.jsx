@@ -7,9 +7,9 @@ function Navbar() {
     setisOpen(!isOpen);
   };
   return (
-    <>
-      <nav className="container hidden md:hidden lg:block">
-        <div className="flex justify-between items-center h-12 font-semibold">
+    <div className="flex justify-center text-[var(--text-color]">
+      <nav className="container fixed top-0 h-9 z-10 hidden md:hidden lg:block">
+        <div className="flex py-2 justify-between items-center font-semibold">
           <div className="">
             <NavLink to="/" activeClassName="active">
               <img className="w-auto h-10" src="/src/assets/SongLap.jpg" alt="" />
@@ -77,7 +77,7 @@ function Navbar() {
           <></>
         )}
       </nav>
-    </>
+    </div>
   );
 }
 
