@@ -1,0 +1,51 @@
+/* Font Load */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Signika:wght@300..700&display=swap");
+
+@import "tailwindcss";
+
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Montserrat", serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: bold;
+  font-family: "Signika", serif;
+}
+
+/* Global Variables */
+:root {
+  --primary-color: #007aff;
+  --secondary-color: #34c759;
+  --background-color: #ffffff;
+  --surface-color: #f2f2f7;
+  --text-color: #1c1c1e;
+  --muted-text-color: #8e8e93;
+}
+
+/* Dark Mode */
+[data-theme="dark"] {
+  --primary-color: #0a84ff;
+  --secondary-color: #30d158;
+  --background-color: #121212;
+  --surface-color: #1e1e1e;
+  --text-color: #eaeaea;
+  --muted-text-color: #a1a1a1;
+}
+/* Other global styles */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
