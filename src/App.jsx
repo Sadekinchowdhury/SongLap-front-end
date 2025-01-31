@@ -1,10 +1,11 @@
+import { RouterProvider } from "react-router-dom"
+import router from "./routes/Router"
 
 function App() {
  
   return (
     <>
-     <h1 className="text-2xl text-[color:var(--primary-color)]">This is the SongLap Chat App</h1>
-   
+    <RouterProvider router={router}/>
     </>
   )
 }
