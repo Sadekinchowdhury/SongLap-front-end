@@ -29,7 +29,7 @@ button {
 /* Global Variables */
 :root {
   --primary-color: #5f63f2; /* Modern, vibrant purple */
-  --secondary-color: #ff8a00; /* Trendy amber-orange */
+  --secondary-color: #ffb400; /* Trendy amber-orange */
   --background-color: #f4f4f9; /* Light, neutral background */
   --surface-color: #ffffff; /* Clean white surface */
   --text-color: #333333; /* Dark, readable text */
@@ -38,7 +38,7 @@ button {
 
 /* Dark Mode */
 [data-theme="dark"] {
-  --primary-color: #6a69f2; /* Lively purple for dark mode */
+  --primary-color: #5f63f2; /* Lively purple for dark mode */
   --secondary-color: #ffb400; /* Bright amber to contrast dark background */
   --background-color: #181818; /* Dark background for a sleek look */
   --surface-color: #222222; /* Slightly lighter surface for depth */

@@ -1,4 +1,4 @@
-function Home() {
+const Hero = () => {
   return (
     <div className="bg-[var(--background-color)] w-screen relative pt-5 md:pt-12 pb-16">
       <div className="max-w-[1200px] mx-auto block md:flex  justify-between items-center pt-2 md:pt-16 lg:pt-24 px-6 text-center md:text-left">
@@ -65,6 +65,6 @@ function Home() {
       </div>
     </div>
   );
-}
+};
 
-export default Home;
+export default Hero;
