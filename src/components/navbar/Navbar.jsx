@@ -8,8 +8,8 @@ function Navbar() {
   };
   return (
     <div className="flex justify-center text-[var(--text-color]">
-      <nav className="container fixed top-0 h-9 z-10 hidden md:hidden lg:block">
-        <div className="flex py-2 justify-between items-center font-semibold">
+      <nav className="w-full fixed top-0 z-10 hidden md:hidden lg:block bg-amber-400">
+        <div className="max-w-[1200px] mx-auto py-3 flex justify-between items-center font-semibold">
           <div className="">
             <NavLink to="/" activeClassName="active">
               <img className="w-auto h-10" src="/src/assets/SongLap.jpg" alt="" />
@@ -36,7 +36,7 @@ function Navbar() {
           </div>
         </div>
       </nav>
-      <nav className="lg:hidden md:block p-5">
+      <nav className="lg:hidden md:block p-5 w-full">
         <div className="flex items-center justify-between">
           <NavLink to="/" activeClassName="active">
             <img className="w-auto h-10" src="/src/assets/SongLap.jpg" alt="" />

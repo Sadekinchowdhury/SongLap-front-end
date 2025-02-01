@@ -23,6 +23,9 @@ h6 {
   font-weight: bold;
   font-family: "Signika", serif;
 }
+button {
+  cursor: pointer;
+}
 /* Global Variables */
 :root {
   --primary-color: #5f63f2; /* Modern, vibrant purple */
