@@ -5,6 +5,7 @@ import About from "../pages/About";
 import Support from "../pages/Support";
 import NotFoundRoute from "../components/NotFoundRoute";
 import Home from "../pages/home/Home";
+import Message from "../features/chat/Message";
 
 const router = createBrowserRouter([
   {
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  { path: "/message", element: <Message /> },
   {
     path: "*",
     element: <NotFoundRoute />,

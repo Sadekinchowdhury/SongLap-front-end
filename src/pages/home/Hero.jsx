@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Hero = () => {
   return (
     <div className="bg-[var(--background-color)] w-screen relative pt-5 md:pt-12 pb-16">
@@ -11,7 +13,10 @@ const Hero = () => {
             from all over the globe!
           </p>
           <div className="flex items-center md:justify-start justify-center mt-6">
-            <button className="mr-4 border border-white rounded-3xl px-[40px] py-3 text-[var(--text-color] text-[20px] font-semibold bg-[var(--primary-color)] hover:bg-indigo-300 transition">
+            <Link
+              to={"/message"}
+              className="mr-4 border border-white rounded-3xl px-[40px] py-3 text-[var(--text-color] text-[20px] font-semibold bg-[var(--primary-color)] hover:bg-indigo-300 transition"
+            >
               <svg
                 stroke="currentColor"
                 fill="none"
@@ -30,8 +35,11 @@ const Hero = () => {
                 />
               </svg>
               Start Chat
-            </button>
-            <button className="border rounded-3xl px-[40px] py-3 text-[var(--text-color] text-[20px] font-semibold hover:border-[1px solid] transition">
+            </Link>
+            <Link
+              to={"/message"}
+              className="border rounded-3xl px-[40px] py-3 text-[var(--text-color] text-[20px] font-semibold hover:border-[1px solid] transition"
+            >
               <svg
                 stroke="currentColor"
                 fill="currentColor"
@@ -46,7 +54,7 @@ const Hero = () => {
                 <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" />
               </svg>
               Video Call
-            </button>
+            </Link>
           </div>
         </div>
         <div className="pt-3 px-5 mt-7 md:mt-0 relative">

@@ -51,3 +51,18 @@ button {
   max-width: 1200px;
   margin: 0 auto;
 }
+
+/* Side bar scroll style */
+/* Custom Scrollbar Styles */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px; /* Set the width of the vertical scrollbar */
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #4a90e2; /* Color of the scrollbar thumb */
+  border-radius: 10px; /* Rounded corners for the thumb */
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: #f1f1f1; /* Background color of the track */
+}
