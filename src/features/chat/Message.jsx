@@ -1,6 +1,6 @@
-import ChatBox from "./ChatBox";
-import Conversation from "./Conversation";
+import ChatBox from "./chatBox/ChatBox";
 import SideMenue from "./SideMenue";
+import Conversation from "./conversation/Conversation";
 
 const Message = () => {
   return (

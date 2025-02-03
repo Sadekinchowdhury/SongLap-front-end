@@ -1,10 +1,12 @@
+import ProfileSlider from "./ProfileSlider";
+
 const Conversation = () => {
   return (
-    <aside className="py-16 px-6">
+    <aside className="py-16 px-4">
       <div className="flex justify-between">
         <div>
-          <p className="text-2xl font-bold mb-2">Recent</p>
-          <p>Chat With Your Feind </p>
+          <p className="text-2xl font-bold mb-1.5 leading-[20px]">Recent</p>
+          <p className="text-[16px]">Chat With Your Feind </p>
         </div>
         <div>
           <span>
@@ -26,6 +28,9 @@ const Conversation = () => {
             </svg>
           </span>
         </div>
+      </div>
+      <div className="mt-10 mb-7">
+        <ProfileSlider />
       </div>
     </aside>
   );
