@@ -1,21 +1,23 @@
-import ChatBox from "./chatBox/ChatBox";
 import SideMenue from "./SideMenue";
 import Conversation from "./conversation/Conversation";
+import ChatBoxTop from "./chatBox/ChatBoxTop";
+import InputMessage from "./chatBox/InputMessage";
 
 const Message = () => {
   return (
-    <div>
-      <div className="static md:grid md:grid-cols-12 gap-0">
+    <div className="">
+      <div className="md:grid md:grid-cols-12 gap-0">
         {/* Sidebar (1 column) */}
         <div className="md:col-span-1">
           <SideMenue />
         </div>
-        <div className="md:col-span-3 border-r border-indigo-100 bg-indigo-50">
+        <div className="md:col-span-3 px-4 border-r border-indigo-100 bg-indigo-50 overflow-y-auto h-screen">
           <Conversation />
         </div>
         {/* Chat Area (3 columns) */}
-        <div className="md:col-span-8">
-          <ChatBox />
+        <div className="md:col-span-8 p-[45px] overflow-y-auto bg-gray-300">
+          <ChatBoxTop />
+          <InputMessage />
         </div>
       </div>
     </div>

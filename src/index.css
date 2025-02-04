@@ -52,7 +52,10 @@ button {
   max-width: 1200px;
   margin: 0 auto;
 }
-
+input {
+  color: #2d343e;
+  font-family: Montserrat, sans-serif;
+}
 /* Custom Scrollbar Styles */
 .scrollbar-thin::-webkit-scrollbar {
   width: 8px; /* Set the width of the vertical scrollbar */
