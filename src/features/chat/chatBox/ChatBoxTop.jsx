@@ -1,6 +1,6 @@
 const ChatBoxTop = () => {
   return (
-    <div className="sticky top-2 grid grid-cols-2 bg-sky-100 rounded-2xl p-3">
+    <div className="sticky top-2 grid grid-cols-2 bg-[var(--background-color)] rounded-2xl p-3">
       <div className="flex py-4 items-center gap-x-3 cursor-pointer">
         <div>
           <img src="" className="w-14 h-14 rounded-[50%] border-2 border-pink-500" alt="" />
@@ -18,8 +18,7 @@ const ChatBoxTop = () => {
             x="0"
             y="0"
             viewBox="0 0 64 64"
-            fill="#000"
-            className="inline mr-1.5"
+            className="inline mr-1.5 fill-[var(--text-color)]"
             height={24}
             width={24}
           >
@@ -43,11 +42,11 @@ const ChatBoxTop = () => {
             y="0"
             viewBox="0 0 152 152"
             xmlSpace="preserve"
+            className="fill-[var(--text-color)]"
           >
             <g>
               <path
                 d="M11 47.9v42.6c0 12.1 9.8 21.9 21.9 21.9h63.6c4.5 0 8.2-3.7 8.2-8.2V61.5c0-12.1-9.8-21.9-21.9-21.9H19.2c-4.5 0-8.2 3.6-8.2 8zM112 95.3l17.6 15.4c2.8 2.5 7.2 2.2 9.7-.6 1.1-1.3 1.7-2.9 1.7-4.5V46.4c0-3.8-3.1-6.8-6.8-6.9-1.7 0-3.3.6-4.5 1.7L112 56.7c-1.5 1.3-2.3 3.2-2.3 5.2v28.3c0 1.9.9 3.8 2.3 5.1z"
-                fill="#000000"
                 opacity="1"
               />
             </g>
@@ -64,11 +63,11 @@ const ChatBoxTop = () => {
             y="0"
             viewBox="0 0 32 32"
             xmlSpace="preserve"
+            className="fill-[var(--text-color)]"
           >
             <g>
               <path
                 d="M13 16c0 1.654 1.346 3 3 3s3-1.346 3-3-1.346-3-3-3-3 1.346-3 3zM13 26c0 1.654 1.346 3 3 3s3-1.346 3-3-1.346-3-3-3-3 1.346-3 3zM13 6c0 1.654 1.346 3 3 3s3-1.346 3-3-1.346-3-3-3-3 1.346-3 3z"
-                fill="#000000"
                 opacity="1"
               />
             </g>

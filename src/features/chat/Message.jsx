@@ -12,11 +12,11 @@ const Message = () => {
         <div className="md:col-span-1">
           <SideMenue />
         </div>
-        <div className="md:col-span-3 px-4 border-r border-indigo-100 bg-indigo-50 overflow-y-auto h-screen">
+        <div className="md:col-span-3 px-4 border-r border-indigo-100 bg-[var(--background-color)] overflow-y-auto h-screen">
           <Conversation />
         </div>
         {/* Chat Area (3 columns) */}
-        <div className="md:col-span-8 p-[45px] overflow-y-auto bg-gray-300">
+        <div className="md:col-span-8 p-[45px] overflow-y-auto bg-[var(--surface-color)]">
           <ChatBoxTop />
           <AllMessage />
           <InputMessage />

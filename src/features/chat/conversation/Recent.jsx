@@ -2,8 +2,8 @@ const Recent = () => {
   return (
     <div className="flex justify-between mb-7">
       <div>
-        <p className="text-2xl font-bold mb-1.5 leading-[20px]">Recent</p>
-        <p className="text-[14px] leading-[20px]">Chat With Your Feind </p>
+        <p className="text-2xl font-bold mb-1.5 leading-[20px] text-[var(--text-color)]">Recent</p>
+        <p className="text-[14px] leading-[20px] text-[var(--text-color)]">Chat With Your Feind </p>
       </div>
       <div>
         <span>
@@ -14,9 +14,9 @@ const Recent = () => {
             viewBox="0 0 24 24"
             stroke="currentColor"
             strokeWidth="1"
-            fill="none"
             strokeLinecap="round"
             strokeLinejoin="round"
+            className="fill-[var(--text-color)]"
           >
             <rect x="3" y="3" width="7" height="9" />
             <rect x="14" y="3" width="7" height="5" />

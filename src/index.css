@@ -32,7 +32,7 @@ button {
   --primary-color: #5f63f2; /* Modern, vibrant purple */
   --secondary-color: #ffb400; /* Trendy amber-orange */
   --background-color: #f4f4f9; /* Light, neutral background */
-  --surface-color: #ffffff; /* Clean white surface */
+  --surface-color: #edfafc; /* Clean white surface */
   --text-color: #333333; /* Dark, readable text */
   --muted-text-color: #b0b0b0; /* Soft gray for muted text */
 }
@@ -42,7 +42,7 @@ button {
   --primary-color: #5f63f2; /* Lively purple for dark mode */
   --secondary-color: #ffb400; /* Bright amber to contrast dark background */
   --background-color: #181818; /* Dark background for a sleek look */
-  --surface-color: #222222; /* Slightly lighter surface for depth */
+  --surface-color: #313131; /* Slightly lighter surface for depth */
   --text-color: #e0e0e0; /* Soft white text for contrast */
   --muted-text-color: #a6a6a6; /* Gentle gray for muted text */
 }

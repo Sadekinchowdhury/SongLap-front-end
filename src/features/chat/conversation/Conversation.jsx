@@ -6,7 +6,7 @@ import SearchConversation from "./SearchConversation";
 const Conversation = () => {
   return (
     <>
-      <div className="sticky top-0 bg-indigo-50 pt-12 pb-5">
+      <div className="sticky top-0 bg-[var(--background-color)] pt-12 pb-5">
         <Recent />
         <ProfileSlider />
       </div>
