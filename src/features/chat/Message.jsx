@@ -2,6 +2,7 @@ import SideMenue from "./SideMenue";
 import Conversation from "./conversation/Conversation";
 import ChatBoxTop from "./chatBox/ChatBoxTop";
 import InputMessage from "./chatBox/InputMessage";
+import AllMessage from "./chatBox/AllMessage";
 
 const Message = () => {
   return (
@@ -17,6 +18,7 @@ const Message = () => {
         {/* Chat Area (3 columns) */}
         <div className="md:col-span-8 p-[45px] overflow-y-auto bg-gray-300">
           <ChatBoxTop />
+          <AllMessage />
           <InputMessage />
         </div>
       </div>
