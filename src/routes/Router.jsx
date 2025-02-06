@@ -6,6 +6,8 @@ import Support from "../pages/Support";
 import NotFoundRoute from "../components/NotFoundRoute";
 import Home from "../pages/home/Home";
 import Message from "../features/chat/Message";
+import Login from "../features/auth/Login";
+import Register from "../features/auth/Register";
 
 const router = createBrowserRouter([
   {
@@ -27,6 +29,14 @@ const router = createBrowserRouter([
       {
         path: "/support",
         element: <Support />,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Register />,
       },
     ],
   },

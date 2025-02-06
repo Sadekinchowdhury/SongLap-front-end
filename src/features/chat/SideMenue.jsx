@@ -3,29 +3,31 @@ import { SideBarIcon } from "/src/features/chat/SideBarIcon.jsx";
 
 const SideMenue = () => {
   return (
-    <nav className="border-r border-[#eff1f2] min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)]">
+    <div className="border-none md:border-r md:border-[#eff1f2] min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)] py-5 flex justify-between flex-col gap-y-4 ">
       <div className="border-b border-[#eff1f2] py-10">
         <div className="flex justify-center items-center">
           <img className="w-[50px] h-[50px] rounded-[50%] border-4 border-[var(--primary-color)]" src="" alt="" />
         </div>
       </div>
-      <div className="flex flex-col justify-between py-10">
+      <div>
         <ul>
           {SideBarIcon.map((item) => {
             return (
-              <li key={item.name} className="pt-8">
+              <li key={item.name} className="py-4 cursor-pointer">
                 <div className="flex justify-center items-center">{item.icon}</div>
               </li>
             );
           })}
         </ul>
+      </div>
+      <div>
         <ul>
-          <li>
+          <li className="py-4 cursor-pointer">
             <div className="flex justify-center items-center">
               <ThemeToggle />
             </div>
           </li>
-          <li>
+          <li className="py-4 cursor-pointer">
             <div className="flex justify-center items-center">
               <svg
                 width="45px"
@@ -45,7 +47,7 @@ const SideMenue = () => {
           </li>
         </ul>
       </div>
-    </nav>
+    </div>
   );
 };
 

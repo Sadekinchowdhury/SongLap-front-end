@@ -34,7 +34,7 @@ const InputMessage = () => {
       <div className="w-full">
         <input
           type="text"
-          className="w-full outline-none placeholder:text-[var(--text-color)] min-h-[40px] text-lg px-3 border rounded-md"
+          className="w-full outline-none placeholder:text-[var(--text-color)] min-h-[40px] text-[var(--text-color)] px-3 border rounded-md"
           placeholder="Type your message..."
           value={message}
           onChange={(e) => setMessage(e.target.value)}

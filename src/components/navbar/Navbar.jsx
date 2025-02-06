@@ -11,34 +11,32 @@ function Navbar() {
       <nav className="w-full fixed top-0 z-10 hidden md:hidden lg:block bg-amber-400">
         <div className="max-w-[1200px] mx-auto py-3 flex justify-between items-center font-semibold">
           <div className="">
-            <NavLink to="/" activeClassName="active">
+            <NavLink to="/">
               <img className="w-auto h-10" src="/src/assets/SongLap.jpg" alt="" />
             </NavLink>
           </div>
           <div className="">
-            <NavLink to="/" activeClassName="active" className="mx-2">
+            <NavLink to="/" className="mx-2">
               Home
             </NavLink>
-            <NavLink to="/blog" activeClassName="active" className="mx-2">
+            <NavLink to="/blog" className="mx-2">
               Blog
             </NavLink>
-            <NavLink to="/about" activeClassName="active" className="mx-2">
+            <NavLink to="/about" className="mx-2">
               About
             </NavLink>
-            <NavLink to="/support" activeClassName="active" className="mx-2">
+            <NavLink to="/support" className="mx-2">
               Support
             </NavLink>
           </div>
           <div className="">
-            <NavLink to="/login" activeClassName="active">
-              Login
-            </NavLink>
+            <NavLink to="/login">Login</NavLink>
           </div>
         </div>
       </nav>
       <nav className="lg:hidden md:block p-5 w-full">
         <div className="flex items-center justify-between">
-          <NavLink to="/" activeClassName="active">
+          <NavLink to="/">
             <img className="w-auto h-10" src="/src/assets/SongLap.jpg" alt="" />
           </NavLink>
           <button onClick={isToggle}>
@@ -57,21 +55,19 @@ function Navbar() {
         </div>
         {isOpen ? (
           <div className="items-center flex flex-col gap-5 p-10 font-semibold">
-            <NavLink to="/" activeClassName="active" className="mx-2">
+            <NavLink to="/" className="mx-2">
               Home
             </NavLink>
-            <NavLink to="/blog" activeClassName="active" className="mx-2">
+            <NavLink to="/blog" className="mx-2">
               Blog
             </NavLink>
-            <NavLink to="/about" activeClassName="active" className="mx-2">
+            <NavLink to="/about" className="mx-2">
               About
             </NavLink>
-            <NavLink to="/support" activeClassName="active" className="mx-2">
+            <NavLink to="/support" className="mx-2">
               Support
             </NavLink>
-            <NavLink to="/login" activeClassName="active">
-              Login
-            </NavLink>
+            <NavLink to="/login">Login</NavLink>
           </div>
         ) : (
           <></>

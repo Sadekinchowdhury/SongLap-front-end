@@ -2,20 +2,20 @@ import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
-    <div className="bg-[var(--background-color)] w-screen relative pt-5 md:pt-12 pb-16">
+    <div className="bg-[var(--background-color)] relative pt-5 md:pt-12 pb-16">
       <div className="max-w-[1200px] mx-auto block md:flex  justify-between items-center pt-2 md:pt-16 lg:pt-24 px-6 text-center md:text-left">
         <div>
-          <h1 className="text-4xl md:text-6xl leading-[1.2] font-bold text-[var(--text-color]">
+          <h1 className="text-4xl md:text-6xl leading-[1.2] font-bold text-[var(--text-color)] ">
             Chat with Strangers, <br /> Make New Friends!
           </h1>
-          <p className="text-lg leading-relaxed text-[var(--text-color] mt-4">
+          <p className="text-lg leading-relaxed text-[var(--text-color)] mt-4">
             Discover a random chat platform to meet new friends, <br /> connect with people, and chat with strangers <br />
             from all over the globe!
           </p>
           <div className="flex items-center md:justify-start justify-center mt-6">
             <Link
               to={"/message"}
-              className="mr-4 border border-white rounded-3xl px-[40px] py-3 text-[var(--text-color] text-[20px] font-semibold bg-[var(--primary-color)] hover:bg-indigo-300 transition"
+              className="mr-4 border border-white rounded-3xl px-[40px] py-3 text-[var(--text-color)] text-[20px] font-semibold bg-[var(--primary-color)] hover:bg-indigo-300 transition"
             >
               <svg
                 stroke="currentColor"
@@ -38,7 +38,7 @@ const Hero = () => {
             </Link>
             <Link
               to={"/message"}
-              className="border rounded-3xl px-[40px] py-3 text-[var(--text-color] text-[20px] font-semibold hover:border-[1px solid] transition"
+              className="border rounded-3xl px-[40px] py-3  text-[var(--text-color)] text-[20px] font-semibold hover:border-[1px solid] transition"
             >
               <svg
                 stroke="currentColor"

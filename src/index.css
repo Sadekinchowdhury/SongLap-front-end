@@ -14,6 +14,8 @@
 
 body {
   font-family: "Montserrat", serif;
+  overflow-x: hidden;
+  height: 100vh;
 }
 
 h1,
@@ -53,12 +55,11 @@ button {
   margin: 0 auto;
 }
 input {
-  color: #2d343e;
   font-family: Montserrat, sans-serif;
 }
 /* Custom Scrollbar Styles */
 .scrollbar-thin::-webkit-scrollbar {
-  width: 8px; /* Set the width of the vertical scrollbar */
+  width: 0px; /* Set the width of the vertical scrollbar */
 }
 
 .scrollbar-thin::-webkit-scrollbar-thumb {
