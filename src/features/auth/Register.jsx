@@ -59,21 +59,21 @@ const Register = () => {
     }
 
     // Create a FormData object to handle file uploads
-    const fd = new FormData();
-    fd.append("name", `${formData.firstName} ${formData.lastName}`);
-    fd.append("email", formData.email);
-    fd.append("mobile", formData.mobile);
-    fd.append("password", formData.password);
-    fd.append("role", formData.role);
-    fd.append("terms", formData.terms);
+    const formdata = new FormData();
+    formdata.append("name", `${formData.firstName} ${formData.lastName}`);
+    formdata.append("email", formData.email);
+    formdata.append("mobile", formData.mobile);
+    formdata.append("password", formData.password);
+    formdata.append("role", formData.role);
+    formdata.append("terms", formData.terms);
     if (formData.avatar) {
-      fd.append("avatar", formData.avatar);
+      formdata.append("avatar", formData.avatar);
     }
 
     try {
       const response = await fetch("http://localhost:3000/users", {
         method: "POST",
-        body: fd,
+        body: formdata,
       });
 
       const result = await response.json();
