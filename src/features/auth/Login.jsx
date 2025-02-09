@@ -1,8 +1,10 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../context/AuthProvider";
 
 const Login = () => {
-  const navigate = useNavigate();
+  const { user, login, loading } = useContext(AuthContext);
+  console.log(user);
+
   const [formData, setFormData] = useState({
     email_or_phone: "",
     password: "",
@@ -16,28 +18,7 @@ const Login = () => {
 
   const submitData = async (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const result = await response.json();
-      console.log(result);
-      if (result) {
-        navigate("/message");
-      }
-    } catch (err) {
-      console.error("Error during login:", err);
-    }
+    login(formData);
   };
 
   return (
