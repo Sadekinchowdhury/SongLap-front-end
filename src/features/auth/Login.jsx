@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user, login, loading } = useContext(AuthContext);
-  console.log(user);
+  const { user, setUser } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     email_or_phone: "",
@@ -18,7 +19,27 @@ const Login = () => {
 
   const submitData = async (e) => {
     e.preventDefault();
-    login(formData);
+    try {
+      const response = await fetch("http://localhost:3000/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+        credentials: "include",
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+
+      if (result.user) {
+        navigate("/message");
+        setUser(result.user);
+      }
+    } catch (err) {
+      console.error("Error during login:", err);
+    }
   };
 
   return (

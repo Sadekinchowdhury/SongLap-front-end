@@ -1,36 +1,37 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
-export const AuthContext = createContext(null);
+export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const login = async (formData) => {
-    setLoading(true);
-    try {
-      const response = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-        credentials: "include",
-      });
+  useEffect(() => {
+    async function getUser() {
+      try {
+        const response = await fetch("http://localhost:3000/users/user", {
+          method: "GET",
+          credentials: "include",
+        });
 
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+        if (response.ok) {
+          const result = await response.json();
+          setUser(result?.user);
+        } else {
+          throw new Error("Failed to fetch user data");
+        }
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
-
-      const result = await response.json();
-
-      setUser(result.user);
-    } catch (err) {
-      console.error("Error during login:", err);
-    } finally {
-      setLoading(false);
     }
-  };
+    getUser();
+  }, []);
+  console.log(user);
 
-  return <AuthContext.Provider value={{ user, loading, login }}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={{ user, loading, error, setUser, setLoading }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthProvider;

@@ -31,6 +31,14 @@ const router = createBrowserRouter([
         element: <Support />,
       },
       {
+        path: "/message",
+        element: <Message />,
+      },
+      {
+        path: "*",
+        element: <NotFoundRoute />,
+      },
+      {
         path: "/login",
         element: <Login />,
       },
@@ -40,10 +48,6 @@ const router = createBrowserRouter([
       },
     ],
   },
-  { path: "/message", element: <Message /> },
-  {
-    path: "*",
-    element: <NotFoundRoute />,
-  },
 ]);
+
 export default router;

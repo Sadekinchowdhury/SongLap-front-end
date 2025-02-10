@@ -1,11 +1,32 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
 
 function Navbar() {
+  const { user, setUser } = useContext(AuthContext);
+
   const [isOpen, setisOpen] = useState(false);
   const isToggle = () => {
     setisOpen(!isOpen);
   };
+  const handleLogOut = async () => {
+    try {
+      setUser(null);
+
+      const logout = await fetch("http://localhost:3000/auth/logout", {
+        method: "DELETE",
+        credentials: "include",
+      });
+
+      const result = await logout.json();
+      if (!result.success) {
+        console.error("Logout failed:", result.message);
+      }
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
+  };
+
   return (
     <div className="flex justify-center text-[var(--text-color]">
       <nav className="w-full fixed top-0 z-10 hidden md:hidden lg:block bg-amber-400">
@@ -30,7 +51,13 @@ function Navbar() {
             </NavLink>
           </div>
           <div className="">
-            <NavLink to="/login">Login</NavLink>
+            {!user ? (
+              <NavLink to="/login">Login</NavLink>
+            ) : (
+              <button onClick={handleLogOut} className="mx-2">
+                Logout
+              </button>
+            )}
           </div>
         </div>
       </nav>
@@ -67,7 +94,13 @@ function Navbar() {
             <NavLink to="/support" className="mx-2">
               Support
             </NavLink>
-            <NavLink to="/login">Login</NavLink>
+            {!user ? (
+              <NavLink to="/login">Login</NavLink>
+            ) : (
+              <button onClick={handleLogOut} className="mx-2">
+                Logout
+              </button>
+            )}
           </div>
         ) : (
           <></>
