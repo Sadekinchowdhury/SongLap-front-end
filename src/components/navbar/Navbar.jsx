@@ -55,7 +55,7 @@ function Navbar() {
               <NavLink to="/login">Login</NavLink>
             ) : (
               <button onClick={handleLogOut} className="mx-2">
-                Logout
+                LogOut
               </button>
             )}
           </div>
@@ -98,7 +98,7 @@ function Navbar() {
               <NavLink to="/login">Login</NavLink>
             ) : (
               <button onClick={handleLogOut} className="mx-2">
-                Logout
+                LogOut
               </button>
             )}
           </div>

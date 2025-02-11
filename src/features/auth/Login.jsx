@@ -3,7 +3,7 @@ import { AuthContext } from "../../context/AuthProvider";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { setUser } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
