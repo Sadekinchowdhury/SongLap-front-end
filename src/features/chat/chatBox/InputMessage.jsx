@@ -8,16 +8,8 @@ const InputMessage = () => {
       text: "",
       attachment: "",
    });
-   console.log(message);
-   const handleFileUpload = (event) => {
-      console.log("File selected:", event.target.files[0]);
-   };
 
-   const handleVoiceInput = () => {
-      console.log("Voice input activated");
-   };
-
-   const handleSubmit = (event) => {
+   const handleSubmit = async (event) => {
       event.preventDefault();
       const formData = {
          text: message.text,
@@ -30,7 +22,18 @@ const InputMessage = () => {
          },
          conversation_id: singleConversation?._id,
       };
-      console.log(formData);
+      try {
+         let response = await fetch(`http://localhost:3000/inbox/message`, {
+            method: "POST",
+            credentials: "include",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(formData),
+         });
+         const result = await response.json();
+         console.log(result.data);
+      } catch (err) {
+         console.log(err);
+      }
    };
 
    return (
@@ -58,7 +61,7 @@ const InputMessage = () => {
                className='w-full outline-none placeholder:text-[var(--text-color)] min-h-[40px] text-[var(--text-color)] px-3 border rounded-md'
                placeholder='Type your message...'
                value={message.text}
-               onChange={(e) => setMessage({ text: e.target.value })}
+               onChange={(e) => setMessage({ ...message, text: e.target.value })}
             />
          </div>
 

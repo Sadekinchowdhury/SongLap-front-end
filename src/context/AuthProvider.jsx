@@ -8,9 +8,7 @@ const AuthProvider = ({ children }) => {
    const [error, setError] = useState(null);
    const [conversationid, setConversationid] = useState(null);
    const [singleConversation, setSingleConversation] = useState(null);
-
-   console.log("Single Conversation:", singleConversation);
-   console.log("Conversation ID:", conversationid);
+   const [instantMessage, setInstantMessage] = useState();
 
    // Fetch logged-in user data
    useEffect(() => {
@@ -43,7 +41,7 @@ const AuthProvider = ({ children }) => {
          if (!conversationid) return; // Prevent fetching with null ID
 
          try {
-            let response = await fetch(`http://localhost:3000/inbox/message/${conversationid}`, {
+            let response = await fetch(`http://localhost:3000/inbox/conversation/${conversationid}`, {
                method: "GET",
                credentials: "include",
             });
@@ -60,7 +58,7 @@ const AuthProvider = ({ children }) => {
       };
 
       getSingleConversation();
-   }, [conversationid]); // Dependency on conversationid
+   }, [conversationid]);
 
    return (
       <AuthContext.Provider
