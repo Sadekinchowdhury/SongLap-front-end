@@ -1,7 +1,7 @@
 import { useState } from "react";
 import SearchModal from "./SearchModal"; // Import the modal component
 
-const SearchConversation = ({ setConversationList }) => {
+const SearchConversation = () => {
    const [isModalOpen, setIsModalOpen] = useState(false);
    const handleModal = () => {
       setIsModalOpen(!isModalOpen);
@@ -27,7 +27,7 @@ const SearchConversation = ({ setConversationList }) => {
          </div>
 
          {/* Render the modal only when needed */}
-         {isModalOpen && <SearchModal handleModal={handleModal} setConversationList={setConversationList} />}
+         {isModalOpen && <SearchModal handleModal={handleModal} />}
       </div>
    );
 };

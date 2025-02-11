@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const SearchModal = ({ handleModal, setConversationList }) => {
+const SearchModal = ({ handleModal }) => {
    const [email_or_phone, setEmailOrPhone] = useState("");
    const [typingTimout, setTypingTimeOut] = useState(null);
    const [user, setUser] = useState([]);
@@ -57,7 +57,6 @@ const SearchModal = ({ handleModal, setConversationList }) => {
          });
 
          const data = await response.json();
-         setConversationList(data.data);
       } catch (error) {
          console.error("Error fetching data:", error);
       }
@@ -85,7 +84,7 @@ const SearchModal = ({ handleModal, setConversationList }) => {
                   placeholder='Type a name...'
                />
             </form>
-            <div className='mt-4 space-y-2'>
+            <div onClick={handleModal} className='mt-4 space-y-2'>
                {user?.map((item) => {
                   return (
                      <div
