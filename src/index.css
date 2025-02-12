@@ -5,17 +5,17 @@
 @import "tailwindcss";
 
 .slick-next {
-  display: none !important;
+   display: none !important;
 } /* Hides the Next button */
 
 .slick-prev {
-  display: none !important;
+   display: none !important;
 } /* Hides the Prev button */
 
 body {
-  font-family: "Montserrat", serif;
-  overflow-x: hidden;
-  height: 100vh;
+   font-family: "Montserrat", serif;
+   overflow-x: hidden;
+   height: 100vh;
 }
 
 h1,
@@ -24,49 +24,44 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Signika", serif;
+   font-family: "Signika", serif;
 }
 button {
-  cursor: pointer;
+   cursor: pointer;
 }
 /* Global Variables */
 :root {
-  --primary-color: #5f63f2; /* Modern, vibrant purple */
-  --secondary-color: #ffb400; /* Trendy amber-orange */
-  --background-color: #f4f4f9; /* Light, neutral background */
-  --surface-color: #edfafc; /* Clean white surface */
-  --text-color: #333333; /* Dark, readable text */
-  --muted-text-color: #b0b0b0; /* Soft gray for muted text */
+   --primary-color: #5f63f2; /* Modern, vibrant purple */
+   --secondary-color: #ffb400; /* Trendy amber-orange */
+   --background-color: #f4f4f9; /* Light, neutral background */
+   --surface-color: #edfafc; /* Clean white surface */
+   --text-color: #333333; /* Dark, readable text */
+   --muted-text-color: #b0b0b0; /* Soft gray for muted text */
 }
 
 /* Dark Mode */
 [data-theme="dark"] {
-  --primary-color: #5f63f2; /* Lively purple for dark mode */
-  --secondary-color: #ffb400; /* Bright amber to contrast dark background */
-  --background-color: #181818; /* Dark background for a sleek look */
-  --surface-color: #313131; /* Slightly lighter surface for depth */
-  --text-color: #e0e0e0; /* Soft white text for contrast */
-  --muted-text-color: #a6a6a6; /* Gentle gray for muted text */
+   --primary-color: #5f63f2; /* Lively purple for dark mode */
+   --secondary-color: #ffb400; /* Bright amber to contrast dark background */
+   --background-color: #181818; /* Dark background for a sleek look */
+   --surface-color: #313131; /* Slightly lighter surface for depth */
+   --text-color: #e0e0e0; /* Soft white text for contrast */
+   --muted-text-color: #a6a6a6; /* Gentle gray for muted text */
 }
 
 /* Other global styles */
 .container {
-  max-width: 1200px;
-  margin: 0 auto;
+   max-width: 1200px;
+   margin: 0 auto;
 }
 input {
-  font-family: Montserrat, sans-serif;
-}
-/* Custom Scrollbar Styles */
-.scrollbar-thin::-webkit-scrollbar {
-  width: 0px; /* Set the width of the vertical scrollbar */
+   font-family: Montserrat, sans-serif;
 }
 
-.scrollbar-thin::-webkit-scrollbar-thumb {
-  background-color: #4a90e2; /* Color of the scrollbar thumb */
-  border-radius: 10px; /* Rounded corners for the thumb */
+/*Left Sidebar,Middle conversation bar,Chat box scrollbar height width controll*/
+.scrollbar-thin::-webkit-scrollbar,
+.conversation-scrollbar::-webkit-scrollbar,
+.chatbox-scrollbar::-webkit-scrollbar {
+   display: none;
 }
-
-.scrollbar-thin::-webkit-scrollbar-track {
-  background: #f1f1f1; /* Background color of the track */
-}
+/*-----------------------------------------*/

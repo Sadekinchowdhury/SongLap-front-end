@@ -37,11 +37,12 @@ const InputMessage = () => {
    };
 
    return (
-      <form
-         onSubmit={handleSubmit}
-         className='flex items-center gap-x-5 py-4 sticky top-full p-5 rounded-md bg-[var(--background-color)] shadow-md'>
-         {/* File Upload */}
-         {/* <label className='cursor-pointer'>
+      <div className=''>
+         <form
+            onSubmit={handleSubmit}
+            className='flex items-center gap-x-5 py-4  p-5 rounded-md bg-[var(--background-color)] shadow-md'>
+            {/* File Upload */}
+            {/* <label className='cursor-pointer'>
             <input type='file' className='hidden' onChange={handleFileUpload} />
             <svg
                xmlns='http://www.w3.org/2000/svg'
@@ -54,19 +55,19 @@ const InputMessage = () => {
             </svg>
          </label> */}
 
-         {/* Message Input */}
-         <div className='w-full'>
-            <input
-               type='text'
-               className='w-full outline-none placeholder:text-[var(--text-color)] min-h-[40px] text-[var(--text-color)] px-3 border rounded-md'
-               placeholder='Type your message...'
-               value={message.text}
-               onChange={(e) => setMessage({ ...message, text: e.target.value })}
-            />
-         </div>
+            {/* Message Input */}
+            <div className='w-full'>
+               <input
+                  type='text'
+                  className='w-full outline-none placeholder:text-[var(--text-color)] min-h-[40px] text-[var(--text-color)] px-3 border rounded-md'
+                  placeholder='Type your message...'
+                  value={message.text}
+                  onChange={(e) => setMessage({ ...message, text: e.target.value })}
+               />
+            </div>
 
-         {/* Voice Input */}
-         {/* <button type='button' onClick={handleVoiceInput} className='focus:outline-none'>
+            {/* Voice Input */}
+            {/* <button type='button' onClick={handleVoiceInput} className='focus:outline-none'>
             <svg
                xmlns='http://www.w3.org/2000/svg'
                width='24'
@@ -78,22 +79,23 @@ const InputMessage = () => {
             </svg>
          </button> */}
 
-         {/* Submit Button */}
-         <button type='submit' className='focus:outline-none'>
-            <svg
-               xmlns='http://www.w3.org/2000/svg'
-               width='24'
-               height='24'
-               viewBox='0 0 548.244 548.244'
-               className='w-6 h-6 fill-[var(--text-color)] hover:fill-blue-500'>
-               <path
-                  fillRule='evenodd'
-                  d='M392.19 156.054 211.268 281.667 22.032 218.58C8.823 214.168-.076 201.775 0 187.852c.077-13.923 9.078-26.24 22.338-30.498L506.15 1.549c11.5-3.697 24.123-.663 32.666 7.88 8.542 8.543 11.577 21.165 7.879 32.666L390.89 525.906c-4.258 13.26-16.575 22.261-30.498 22.338-13.923.076-26.316-8.823-30.728-22.032l-63.393-190.153z'
-                  clipRule='evenodd'
-               />
-            </svg>
-         </button>
-      </form>
+            {/* Submit Button */}
+            <button type='submit' className='focus:outline-none'>
+               <svg
+                  xmlns='http://www.w3.org/2000/svg'
+                  width='24'
+                  height='24'
+                  viewBox='0 0 548.244 548.244'
+                  className='w-6 h-6 fill-[var(--text-color)] hover:fill-blue-500'>
+                  <path
+                     fillRule='evenodd'
+                     d='M392.19 156.054 211.268 281.667 22.032 218.58C8.823 214.168-.076 201.775 0 187.852c.077-13.923 9.078-26.24 22.338-30.498L506.15 1.549c11.5-3.697 24.123-.663 32.666 7.88 8.542 8.543 11.577 21.165 7.879 32.666L390.89 525.906c-4.258 13.26-16.575 22.261-30.498 22.338-13.923.076-26.316-8.823-30.728-22.032l-63.393-190.153z'
+                     clipRule='evenodd'
+                  />
+               </svg>
+            </button>
+         </form>
+      </div>
    );
 };
 
