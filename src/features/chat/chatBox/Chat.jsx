@@ -26,7 +26,7 @@ const Chat = () => {
 
    useEffect(() => {
       getMessages();
-   }, [conversationid]); // Run effect when conversationid changes
+   }, [conversationid]);
 
    return (
       <div className='py-10 px-5'>
@@ -42,7 +42,7 @@ const Chat = () => {
                         {" "}
                         {msg?.sender?.id !== user?.userid && (
                            <img
-                              src={`http://localhost:3000/uploads/avatar/${msg.sender.avatar}`} // Fallback if avatar is missing
+                              src={`http://localhost:3000/uploads/avatar/${msg.sender.avatar}`}
                               className='w-10 h-10 mr-2 rounded-full border border-blue-700'
                               alt='User Avatar'
                            />

@@ -151,7 +151,7 @@ const ConversationList = () => {
 
                   <div>
                      <h6 className='text-[12px] font-semibold text-[var(--text-color)] leading-[14px] mb-1.5 text-end'>
-                        02/04/2025
+                        {new Date(item.last_updated).toLocaleDateString("en-US")}
                      </h6>
                      <p className='text-[12px] font-medium text-green-600 leading-[15px] text-end'>Recent</p>
                   </div>
