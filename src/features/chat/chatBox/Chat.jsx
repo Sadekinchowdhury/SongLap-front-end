@@ -42,7 +42,7 @@ const Chat = () => {
                         {" "}
                         {msg?.sender?.id !== user?.userid && (
                            <img
-                              src={msg?.sender?.avatar || "/default-avatar.png"} // Fallback if avatar is missing
+                              src={`http://localhost:3000/uploads/avatar/${msg.sender.avatar}`} // Fallback if avatar is missing
                               className='w-10 h-10 mr-2 rounded-full border border-blue-700'
                               alt='User Avatar'
                            />

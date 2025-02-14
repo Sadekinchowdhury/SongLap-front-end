@@ -132,7 +132,13 @@ const ConversationList = () => {
                      item._id === conversationid ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
                   }`}>
                   <div className='flex items-center'>
-                     <img src={""} className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2' alt='' />
+                     <img
+                        src={`http://localhost:3000/uploads/avatar/${
+                           user.userid === item.participant.id ? item.creator.avatar : item.participant.avatar
+                        }`}
+                        className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2'
+                        alt=''
+                     />
 
                      <div>
                         {" "}
