@@ -3,11 +3,12 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const ConversationList = () => {
-   const { setConversationid, conversationid } = useContext(AuthContext);
+   const { setConversationid, conversationid, user } = useContext(AuthContext);
    const [conversationData, setConversationData] = useState([]);
    const [countIndex, setcountIndex] = useState(1);
    console.log("conversation id from list", conversationid);
-   // active chat,call,contact button when cliked
+
+   // active chat,call,contact button when clikedffor toggle
    const handleActive = (index) => {
       setcountIndex(() => index);
    };
@@ -130,15 +131,18 @@ const ConversationList = () => {
                   className={`flex justify-between py-4 items-center cursor-pointer transition duration-300 ${
                      item._id === conversationid ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
                   }`}>
-                  <div>
-                     <img src={item.participant.avatar} className='w-14 h-14 rounded-[50%] border-2 border-pink-500' alt='' />
+                  <div className='flex items-center'>
+                     <img src={""} className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2' alt='' />
+
+                     <div>
+                        {" "}
+                        <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[14px] mb-1.5'>
+                           {user.userid === item.participant.id ? item.creator.name : item.participant.name}
+                        </h6>
+                        <p className='text-[12px] text-[var(--text-color)]'>Can you here me..</p>
+                     </div>
                   </div>
-                  <div>
-                     <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[14px] mb-1.5'>
-                        {item.participant.name}
-                     </h6>
-                     <p className='text-[13px] font-medium text-[var(--text-color)] leading-[12px]'>Hi this is sadekin chow</p>
-                  </div>
+
                   <div>
                      <h6 className='text-[12px] font-semibold text-[var(--text-color)] leading-[14px] mb-1.5 text-end'>
                         02/04/2025

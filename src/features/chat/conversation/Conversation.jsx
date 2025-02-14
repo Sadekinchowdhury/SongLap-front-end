@@ -6,7 +6,7 @@ import SearchConversation from "./search-coversation/SearchConversation";
 const Conversation = () => {
    return (
       <>
-         <div className='sticky top-0 bg-[var(--background-color)] pt-12 pb-5'>
+         <div className='sticky z-10 top-0 bg-[var(--background-color)] pt-12 pb-5'>
             <Recent />
             <ProfileSlider />
          </div>

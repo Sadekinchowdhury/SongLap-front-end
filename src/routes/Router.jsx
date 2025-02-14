@@ -49,11 +49,7 @@ const router = createBrowserRouter([
          },
          {
             path: "/register",
-            element: (
-               <PrivateRoute>
-                  <Register />
-               </PrivateRoute>
-            ),
+            element: <Register />,
          },
       ],
    },

@@ -10,8 +10,8 @@ const SearchModal = ({ handleModal }) => {
       clearTimeout(typingTimout);
 
       let timeout = setTimeout(() => {
-         handleSubmit(); // ✅ Remove e.preventDefault()
-      }, 2000);
+         handleSubmit();
+      }, 3000);
       setTypingTimeOut(timeout);
    };
 
@@ -34,7 +34,6 @@ const SearchModal = ({ handleModal }) => {
          const data = await response.json();
          console.log(data);
          setUser(data.data || []);
-         setEmailOrPhone(""); // ✅ Clear input after search
       } catch (error) {
          console.error("Error fetching data:", error);
       }
