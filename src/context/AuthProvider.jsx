@@ -8,9 +8,6 @@ const AuthProvider = ({ children }) => {
    const [error, setError] = useState(null);
    const [conversationid, setConversationid] = useState(null);
    const [singleConversation, setSingleConversation] = useState(null);
-   const [instantMessage, setInstantMessage] = useState();
-
-   console.log(user);
 
    // Fetch logged-in user data
    useEffect(() => {

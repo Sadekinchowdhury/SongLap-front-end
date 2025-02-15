@@ -6,7 +6,6 @@ const ConversationList = () => {
    const { setConversationid, conversationid, user } = useContext(AuthContext);
    const [conversationData, setConversationData] = useState([]);
    const [countIndex, setcountIndex] = useState(1);
-   console.log("conversation id from list", conversationid);
 
    // active chat,call,contact button when clikedffor toggle
    const handleActive = (index) => {
@@ -25,7 +24,6 @@ const ConversationList = () => {
 
             const result = await response.json();
             setConversationData(result.data);
-            console.log("fetch coversation data:- ", result);
          } catch (error) {
             console.error("Error fetching data:", error);
          }

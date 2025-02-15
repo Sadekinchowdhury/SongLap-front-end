@@ -1,9 +1,23 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
+import useSocket from "../../../hooks/useSocket";
 
 const Chat = () => {
+   const socket = useSocket();
    const { user, conversationid } = useContext(AuthContext);
-   const [messages, setMessages] = useState();
+   const [messages, setMessages] = useState([]);
+
+   useEffect(() => {
+      if (socket) {
+         socket.on("message", (msg) => {
+            console.log(msg, "from socket");
+            setMessages((prev) => [...prev, msg]); // Correctly append new message
+         });
+
+         // Clean up socket listener when component unmounts
+         return () => socket.off("message");
+      }
+   }, [socket]);
 
    const getMessages = async () => {
       try {
@@ -42,7 +56,7 @@ const Chat = () => {
                         {" "}
                         {msg?.sender?.id !== user?.userid && (
                            <img
-                              src={`http://localhost:3000/uploads/avatar/${msg.sender.avatar}`}
+                              src={`http://localhost:3000/uploads/avatar/${msg.sender?.avatar}`}
                               className='w-10 h-10 mr-2 rounded-full border border-blue-700'
                               alt='User Avatar'
                            />
