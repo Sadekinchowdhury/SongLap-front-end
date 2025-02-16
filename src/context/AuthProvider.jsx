@@ -6,8 +6,9 @@ const AuthProvider = ({ children }) => {
    const [user, setUser] = useState(null);
    const [loading, setLoading] = useState(true);
    const [error, setError] = useState(null);
-   const [conversationid, setConversationid] = useState(null);
+   const [currentConversationId, setCurrentConversationId] = useState(null);
    const [singleConversation, setSingleConversation] = useState(null);
+   const [conv, setConv] = useState(true);
 
    // Fetch logged-in user data
    useEffect(() => {
@@ -37,10 +38,10 @@ const AuthProvider = ({ children }) => {
    // Fetch single conversation when `conversationid` changes
    useEffect(() => {
       const getSingleConversation = async () => {
-         if (!conversationid) return; // Prevent fetching with null ID
+         if (!currentConversationId) return;
 
          try {
-            let response = await fetch(`http://localhost:3000/inbox/conversation/${conversationid}`, {
+            let response = await fetch(`http://localhost:3000/inbox/conversation/${currentConversationId}`, {
                method: "GET",
                credentials: "include",
             });
@@ -57,7 +58,7 @@ const AuthProvider = ({ children }) => {
       };
 
       getSingleConversation();
-   }, [conversationid]);
+   }, [currentConversationId]);
 
    return (
       <AuthContext.Provider
@@ -67,9 +68,11 @@ const AuthProvider = ({ children }) => {
             error,
             setUser,
             setLoading,
-            setConversationid,
-            conversationid,
-            singleConversation, // Exposing singleConversation if needed
+            setCurrentConversationId,
+            currentConversationId,
+            singleConversation,
+            conv,
+            setConv,
          }}>
          {children}
       </AuthContext.Provider>

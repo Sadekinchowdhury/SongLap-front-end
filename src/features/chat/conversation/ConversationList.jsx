@@ -1,9 +1,9 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const ConversationList = () => {
-   const { setConversationid, conversationid, user } = useContext(AuthContext);
+   const { setCurrentConversationId, currentConversationId, user, conv } = useContext(AuthContext);
    const [conversationData, setConversationData] = useState([]);
    const [countIndex, setcountIndex] = useState(1);
 
@@ -13,7 +13,7 @@ const ConversationList = () => {
    };
 
    // Get user conversation data
-   useState(() => {
+   useEffect(() => {
       const getConversation = async () => {
          try {
             const response = await fetch("http://localhost:3000/inbox/conversation", {
@@ -29,7 +29,7 @@ const ConversationList = () => {
          }
       };
       getConversation();
-   }, []);
+   }, [conv]);
 
    return (
       <div>
@@ -121,41 +121,42 @@ const ConversationList = () => {
             </Link>
          </div>
          {/*Conversation list*/}
-         {conversationData?.map((item) => {
-            return (
-               <div
-                  onClick={() => setConversationid(item._id)}
-                  key={item._id}
-                  className={`flex justify-between py-4 items-center cursor-pointer transition duration-300 ${
-                     item._id === conversationid ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
-                  }`}>
-                  <div className='flex items-center'>
-                     <img
-                        src={`http://localhost:3000/uploads/avatar/${
-                           user.userid === item.participant.id ? item.creator.avatar : item.participant.avatar
-                        }`}
-                        className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2'
-                        alt=''
-                     />
+         {conversationData?.length > 0 &&
+            conversationData.map((item) => {
+               return (
+                  <div
+                     onClick={() => setCurrentConversationId(item?._id)}
+                     key={item._id}
+                     className={`flex justify-between py-4 items-center cursor-pointer transition duration-300 ${
+                        item._id === currentConversationId ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
+                     }`}>
+                     <div className='flex items-center'>
+                        <img
+                           src={`http://localhost:3000/uploads/avatar/${
+                              user.userid === item.participant.id ? item.creator.avatar : item.participant.avatar
+                           }`}
+                           className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2'
+                           alt=''
+                        />
+
+                        <div>
+                           {" "}
+                           <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[14px] mb-1.5'>
+                              {user.userid === item.participant.id ? item.creator.name : item.participant.name}
+                           </h6>
+                           <p className='text-[12px] text-[var(--text-color)]'>Can you here me..</p>
+                        </div>
+                     </div>
 
                      <div>
-                        {" "}
-                        <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[14px] mb-1.5'>
-                           {user.userid === item.participant.id ? item.creator.name : item.participant.name}
+                        <h6 className='text-[12px] font-semibold text-[var(--text-color)] leading-[14px] mb-1.5 text-end'>
+                           {new Date(item.last_updated).toLocaleDateString("en-US")}
                         </h6>
-                        <p className='text-[12px] text-[var(--text-color)]'>Can you here me..</p>
+                        <p className='text-[12px] font-medium text-green-600 leading-[15px] text-end'>Recent</p>
                      </div>
                   </div>
-
-                  <div>
-                     <h6 className='text-[12px] font-semibold text-[var(--text-color)] leading-[14px] mb-1.5 text-end'>
-                        {new Date(item.last_updated).toLocaleDateString("en-US")}
-                     </h6>
-                     <p className='text-[12px] font-medium text-green-600 leading-[15px] text-end'>Recent</p>
-                  </div>
-               </div>
-            );
-         })}
+               );
+            })}
       </div>
    );
 };

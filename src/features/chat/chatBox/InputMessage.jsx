@@ -2,7 +2,7 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const InputMessage = () => {
-   const { singleConversation, user, conversationid } = useContext(AuthContext);
+   const { singleConversation, user, currentConversationId } = useContext(AuthContext);
 
    const [avatar, setAvatar] = useState(null);
 
@@ -36,6 +36,9 @@ const InputMessage = () => {
          });
 
          const result = await response.json();
+         if (result) {
+            setMessage({ text: "", attachment: "" });
+         }
       } catch (err) {
          console.log(err);
       }
@@ -43,12 +46,12 @@ const InputMessage = () => {
 
    const handleFileUpload = (e) => {
       e.preventDefault();
-      setAvatar(e.target.files[0]);
+      setAvatar(e.target.files[0] ? e.target.files[0] : "");
    };
 
    return (
-      <div className=''>
-         {conversationid ? (
+      <div>
+         {currentConversationId ? (
             <form
                onSubmit={handleSubmit}
                className='flex items-center gap-x-5 py-4  p-5 rounded-md bg-[var(--background-color)] shadow-md'>

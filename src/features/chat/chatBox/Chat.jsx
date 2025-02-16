@@ -4,14 +4,14 @@ import useSocket from "../../../hooks/useSocket";
 
 const Chat = () => {
    const socket = useSocket();
-   const { user, conversationid } = useContext(AuthContext);
+   const { user, currentConversationId } = useContext(AuthContext);
    const [messages, setMessages] = useState([]);
 
    useEffect(() => {
       if (socket) {
          socket.on("message", (msg) => {
-            console.log(msg, "from socket");
-            setMessages((prev) => [...prev, msg]); // Correctly append new message
+            console.log(msg.data, "from socket");
+            setMessages((prev) => [...prev, msg.data]);
          });
 
          // Clean up socket listener when component unmounts
@@ -21,8 +21,8 @@ const Chat = () => {
 
    const getMessages = async () => {
       try {
-         if (conversationid) {
-            let response = await fetch(`http://localhost:3000/inbox/message/${conversationid}`, {
+         if (currentConversationId) {
+            let response = await fetch(`http://localhost:3000/inbox/message/${currentConversationId}`, {
                method: "GET",
                credentials: "include",
             });
@@ -30,7 +30,7 @@ const Chat = () => {
 
             // Ensure messages is always an array
             setMessages(result?.data || []);
-            console.log(result.data);
+            console.log(result.data, "api data");
          }
       } catch (err) {
          console.log("Error fetching messages:", err);
@@ -40,7 +40,9 @@ const Chat = () => {
 
    useEffect(() => {
       getMessages();
-   }, [conversationid]);
+   }, [socket, currentConversationId]);
+
+   console.log(messages, "chat all message");
 
    return (
       <div className='py-10 px-5'>

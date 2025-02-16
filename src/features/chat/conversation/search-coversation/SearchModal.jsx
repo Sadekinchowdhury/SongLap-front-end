@@ -1,6 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../../../../context/AuthProvider";
 
 const SearchModal = ({ handleModal }) => {
+   const { conv, setConv } = useContext(AuthContext);
+
    const [email_or_phone, setEmailOrPhone] = useState("");
    const [typingTimout, setTypingTimeOut] = useState(null);
    const [user, setUser] = useState([]);
@@ -32,7 +35,7 @@ const SearchModal = ({ handleModal }) => {
          });
 
          const data = await response.json();
-         console.log(data);
+
          setUser(data.data || []);
       } catch (error) {
          console.error("Error fetching data:", error);
@@ -56,6 +59,9 @@ const SearchModal = ({ handleModal }) => {
          });
 
          const data = await response.json();
+         if (data.success) {
+            setConv(!conv);
+         }
       } catch (error) {
          console.error("Error fetching data:", error);
       }
