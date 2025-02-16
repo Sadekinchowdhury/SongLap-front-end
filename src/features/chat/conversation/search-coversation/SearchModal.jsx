@@ -2,11 +2,10 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../../context/AuthProvider";
 
 const SearchModal = ({ handleModal }) => {
-   const { conv, setConv } = useContext(AuthContext);
-
-   const [email_or_phone, setEmailOrPhone] = useState("");
-   const [typingTimout, setTypingTimeOut] = useState(null);
-   const [user, setUser] = useState([]);
+   const { conv, setConv } = useContext(AuthContext); // For instant loading conversation list
+   const [email_or_phone, setEmailOrPhone] = useState(""); // User input field
+   const [typingTimout, setTypingTimeOut] = useState(null); // Timing set for form submit
+   const [user, setUser] = useState([]); // Find conversation user not login user
 
    // Handle key up event
    const handleKeyUp = () => {

@@ -3,12 +3,12 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-   const [user, setUser] = useState(null);
-   const [loading, setLoading] = useState(true);
-   const [error, setError] = useState(null);
-   const [currentConversationId, setCurrentConversationId] = useState(null);
-   const [singleConversation, setSingleConversation] = useState(null);
-   const [conv, setConv] = useState(true);
+   const [user, setUser] = useState(null); // Login user load
+   const [loading, setLoading] = useState(true); // loading
+   const [error, setError] = useState(null); // Error handling
+   const [currentConversationId, setCurrentConversationId] = useState(null); // Find conversation by id
+   const [singleConversation, setSingleConversation] = useState(null); // Pich of conversation data
+   const [conv, setConv] = useState(true); // This state use for instantly conversation user add
 
    // Fetch logged-in user data
    useEffect(() => {
@@ -61,6 +61,7 @@ const AuthProvider = ({ children }) => {
    }, [currentConversationId]);
 
    return (
+      // Wrap by provider for using global data
       <AuthContext.Provider
          value={{
             user,

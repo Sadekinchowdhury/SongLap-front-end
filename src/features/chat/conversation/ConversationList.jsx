@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const ConversationList = () => {
-   const { setCurrentConversationId, currentConversationId, user, conv } = useContext(AuthContext);
+   const { setCurrentConversationId, currentConversationId, user } = useContext(AuthContext);
    const [conversationData, setConversationData] = useState([]);
    const [countIndex, setcountIndex] = useState(1);
 
@@ -24,12 +24,13 @@ const ConversationList = () => {
 
             const result = await response.json();
             setConversationData(result.data);
+            console.log(result.data);
          } catch (error) {
             console.error("Error fetching data:", error);
          }
       };
       getConversation();
-   }, [conv]);
+   }, [currentConversationId]);
 
    return (
       <div>
@@ -125,16 +126,14 @@ const ConversationList = () => {
             conversationData.map((item) => {
                return (
                   <div
-                     onClick={() => setCurrentConversationId(item?._id)}
-                     key={item._id}
+                     onClick={() => setCurrentConversationId(item.id)}
+                     key={item.id}
                      className={`flex justify-between py-4 items-center cursor-pointer transition duration-300 ${
-                        item._id === currentConversationId ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
+                        item.id === currentConversationId ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
                      }`}>
                      <div className='flex items-center'>
                         <img
-                           src={`http://localhost:3000/uploads/avatar/${
-                              user.userid === item.participant.id ? item.creator.avatar : item.participant.avatar
-                           }`}
+                           src={`http://localhost:3000/uploads/avatar/${item.user.avatar}`}
                            className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2'
                            alt=''
                         />
@@ -142,7 +141,7 @@ const ConversationList = () => {
                         <div>
                            {" "}
                            <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[14px] mb-1.5'>
-                              {user.userid === item.participant.id ? item.creator.name : item.participant.name}
+                              {item.user.name}
                            </h6>
                            <p className='text-[12px] text-[var(--text-color)]'>Can you here me..</p>
                         </div>
