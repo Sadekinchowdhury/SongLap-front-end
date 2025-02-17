@@ -31,9 +31,8 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
          }
       }
-
       getUser();
-   }, []);
+   }, [currentConversationId]);
 
    // Fetch single conversation when `conversationid` changes
    useEffect(() => {
