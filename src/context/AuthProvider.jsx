@@ -10,6 +10,25 @@ const AuthProvider = ({ children }) => {
    const [singleConversation, setSingleConversation] = useState(null); // Pich of conversation data
    const [conv, setConv] = useState(true); // This state use for instantly conversation user add
 
+   // Logout
+   const handleLogOut = async () => {
+      try {
+         setUser(null);
+
+         const logout = await fetch("http://localhost:3000/auth/logout", {
+            method: "DELETE",
+            credentials: "include",
+         });
+
+         const result = await logout.json();
+         if (!result.success) {
+            console.error("Logout failed:", result.message);
+         }
+      } catch (err) {
+         console.error("Logout error:", err);
+      }
+   };
+
    // Fetch logged-in user data
    useEffect(() => {
       async function getUser() {
@@ -32,7 +51,7 @@ const AuthProvider = ({ children }) => {
          }
       }
       getUser();
-   }, [currentConversationId]);
+   }, []);
 
    // Fetch single conversation when `conversationid` changes
    useEffect(() => {
@@ -73,6 +92,7 @@ const AuthProvider = ({ children }) => {
             singleConversation,
             conv,
             setConv,
+            handleLogOut,
          }}>
          {children}
       </AuthContext.Provider>

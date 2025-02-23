@@ -24,7 +24,6 @@ const ConversationList = () => {
 
             const result = await response.json();
             setConversationData(result.data);
-            console.log(result.data);
          } catch (error) {
             console.error("Error fetching data:", error);
          }

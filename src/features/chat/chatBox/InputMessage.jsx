@@ -17,7 +17,7 @@ const InputMessage = () => {
       const formData = new FormData();
       formData.append("avatar", avatar);
       formData.append("text", message.text);
-      formData.append("sender", JSON.stringify({ id: user.userid, name: user.name, avatar: user.avatar }));
+      formData.append("sender", JSON.stringify({ id: user._id, name: user.name, avatar: user.avatar }));
       formData.append(
          "receiver",
          JSON.stringify({

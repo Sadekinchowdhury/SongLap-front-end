@@ -9,6 +9,8 @@ import Message from "../features/chat/Message";
 import Login from "../features/auth/Login";
 import Register from "../features/auth/Register";
 import PrivateRoute from "./PrivateRoute";
+import Conversation from "../features/chat/conversation/Conversation";
+import Settings from "../features/settings/Settings";
 
 const router = createBrowserRouter([
    {
@@ -32,14 +34,6 @@ const router = createBrowserRouter([
             element: <Support />,
          },
          {
-            path: "/message",
-            element: (
-               <PrivateRoute>
-                  <Message />
-               </PrivateRoute>
-            ),
-         },
-         {
             path: "*",
             element: <NotFoundRoute />,
          },
@@ -50,6 +44,24 @@ const router = createBrowserRouter([
          {
             path: "/register",
             element: <Register />,
+         },
+      ],
+   },
+   {
+      path: "/message",
+      element: (
+         <PrivateRoute>
+            <Message />
+         </PrivateRoute>
+      ),
+      children: [
+         {
+            path: "",
+            element: <Conversation />,
+         },
+         {
+            path: "settings",
+            element: <Settings />,
          },
       ],
    },

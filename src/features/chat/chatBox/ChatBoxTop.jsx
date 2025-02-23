@@ -8,7 +8,7 @@ const ChatBoxTop = () => {
          <div className='flex py-4 items-center gap-x-3 cursor-pointer'>
             <div>
                <img
-                  src={`http://localhost:3000/uploads/avatar/${user.avatar}`}
+                  src={`http://localhost:3000/uploads/avatar/${user?.avatar}`}
                   className='w-14 h-14 rounded-[50%] border-2 border-pink-500'
                   alt=''
                />
