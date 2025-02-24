@@ -21,13 +21,13 @@ export const SideBarIcon = [
    {
       name: "Notification",
       path: "/message/notification",
-      icon: <Bell className='w-10 h-10 inline-block p-3 bg-[#eff1f22 rounded-full transition duration-300 hover:bg-[#d3d8db]' />,
+      icon: <Bell className='w-10 h-10 inline-block p-3 bg-[#eff1f2] rounded-full transition duration-300 hover:bg-[#d3d8db]' />,
    },
    {
       name: "Settings",
       path: "/message/settings",
       icon: (
-         <Settings className='w-10 h-10 inline-block p-3 bg-[#eff1f2] 2ounded-full transition duration-300 hover:bg-[#d3d8db]' />
+         <Settings className='w-10 h-10 inline-block p-3 bg-[#eff1f2] rounded-full transition duration-300 hover:bg-[#d3d8db]' />
       ),
    },
 ];

@@ -14,7 +14,7 @@ const Recent = () => {
             <p className='text-[14px] leading-[20px] text-[var(--text-color)]'>Chat With Your Feind </p>
          </div>
          <div>
-            <LayoutDashboard fill='white' onClick={handleSidebar} className='w-6 h-6 cursor-pointer' />
+            <LayoutDashboard fill='white' onClick={handleSidebar} className='w-6 h-6 cursor-pointer text-[var(--text-color)]' />
          </div>
       </div>
    );

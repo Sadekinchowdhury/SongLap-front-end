@@ -2,15 +2,19 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const InputMessage = () => {
+   // Global object load From AuthProvider
    const { singleConversation, user, currentConversationId } = useContext(AuthContext);
 
+   // Image setup
    const [avatar, setAvatar] = useState(null);
 
+   // Text message
    const [message, setMessage] = useState({
       text: "",
       attachment: "",
    });
 
+   // Send message
    const handleSubmit = async (event) => {
       event.preventDefault();
 
@@ -44,6 +48,7 @@ const InputMessage = () => {
       }
    };
 
+   // Upload file
    const handleFileUpload = (e) => {
       e.preventDefault();
       setAvatar(e.target.files[0] ? e.target.files[0] : "");
@@ -51,6 +56,7 @@ const InputMessage = () => {
 
    return (
       <div>
+         {/* If Conversation id set then show input filed */}
          {currentConversationId ? (
             <form
                onSubmit={handleSubmit}

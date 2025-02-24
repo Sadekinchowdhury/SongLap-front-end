@@ -138,7 +138,7 @@ const Chat = () => {
                   )
                )
          ) : (
-            <p className='text-center text-gray-500'>No messages yet.</p>
+            <></>
          )}
       </div>
    );

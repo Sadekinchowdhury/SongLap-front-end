@@ -15,6 +15,15 @@ const AuthProvider = ({ children }) => {
 
    const [showSideBar, setShowSideBar] = useState(true);
 
+   // search conversation modal
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
+   // Search conversation modal
+
+   const handleModal = () => {
+      setIsModalOpen(!isModalOpen);
+   };
+
    // Logout
    const handleLogOut = async () => {
       try {
@@ -104,6 +113,8 @@ const AuthProvider = ({ children }) => {
             currentConv,
             showSideBar,
             setShowSideBar,
+            handleModal,
+            isModalOpen,
          }}>
          {children}
       </AuthContext.Provider>
