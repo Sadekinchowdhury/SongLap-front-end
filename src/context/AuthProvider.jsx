@@ -8,7 +8,12 @@ const AuthProvider = ({ children }) => {
    const [error, setError] = useState(null); // Error handling
    const [currentConversationId, setCurrentConversationId] = useState(null); // Find conversation by id
    const [singleConversation, setSingleConversation] = useState(null); // Pich of conversation data
+
+   const [currentConv, setCurrentConv] = useState(null);
+
    const [conv, setConv] = useState(true); // This state use for instantly conversation user add
+
+   const [showSideBar, setShowSideBar] = useState(true);
 
    // Logout
    const handleLogOut = async () => {
@@ -78,6 +83,8 @@ const AuthProvider = ({ children }) => {
       getSingleConversation();
    }, [currentConversationId]);
 
+   console.log(currentConversationId);
+
    return (
       // Wrap by provider for using global data
       <AuthContext.Provider
@@ -93,6 +100,10 @@ const AuthProvider = ({ children }) => {
             conv,
             setConv,
             handleLogOut,
+            setCurrentConv,
+            currentConv,
+            showSideBar,
+            setShowSideBar,
          }}>
          {children}
       </AuthContext.Provider>

@@ -2,11 +2,11 @@ import { ChevronDown, User } from "lucide-react";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
 
-const PersonalInfo = ({ dropdown, setDropdown }) => {
+const PersonalInfo = ({ dropdown, setDropdown, changePic }) => {
    const { user, setUser } = useContext(AuthContext);
    const isOpen = dropdown === "personal";
    const [name, setName] = useState(user?.name || "");
-   const [avatar, setAvatar] = useState(null);
+
    const url = `http://localhost:3000/users/profile/update/${user?._id}`;
 
    const handleSubmit = async (e) => {
@@ -15,11 +15,11 @@ const PersonalInfo = ({ dropdown, setDropdown }) => {
       const formData = new FormData();
 
       formData.append("name", name);
-      console.log(JSON.stringify(formData));
-      if (avatar) {
-         formData.append("avatar", avatar);
+
+      if (changePic) {
+         formData.append("avatar", changePic);
       }
-      // formData.append("avatar",e.target.file)
+
       try {
          const response = await fetch(url, {
             method: "PUT",
@@ -37,6 +37,7 @@ const PersonalInfo = ({ dropdown, setDropdown }) => {
          alert("Error updating profile");
       }
    };
+
    return (
       <>
          <div
@@ -73,12 +74,7 @@ const PersonalInfo = ({ dropdown, setDropdown }) => {
                   disabled
                   className='border p-2 rounded w-full bg-gray-200'
                />
-               <input
-                  type='file'
-                  accept='image/*'
-                  onChange={(e) => setAvatar(e.target.files[0])}
-                  className='border p-2 rounded w-full'
-               />
+
                <button type='submit' className='bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600'>
                   Update Profile
                </button>

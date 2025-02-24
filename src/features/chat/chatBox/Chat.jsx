@@ -71,7 +71,7 @@ const Chat = () => {
    };
 
    return (
-      <div className='py-10 px-5'>
+      <div className='py-10'>
          {user?._id && messages?.length > 0 ? (
             messages
                .filter((msg) => msg.conversation_id === currentConversationId)

@@ -2,19 +2,20 @@ import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 
 const ChatBoxTop = () => {
-   const { user } = useContext(AuthContext);
+   const { currentConv } = useContext(AuthContext);
+
    return (
       <div className='sticky top-2 grid grid-cols-2 bg-[var(--background-color)] rounded-2xl p-3'>
          <div className='flex py-4 items-center gap-x-3 cursor-pointer'>
             <div>
                <img
-                  src={`http://localhost:3000/uploads/avatar/${user?.avatar}`}
+                  src={`http://localhost:3000/uploads/avatar/${currentConv?.user.avatar}`}
                   className='w-14 h-14 rounded-[50%] border-2 border-pink-500'
                   alt=''
                />
             </div>
             <div>
-               <h6 className='text-[18px] font-bold text-[var(--text-color)] leading-[18px] mb-1.5'>{user.name}</h6>
+               <h6 className='text-[18px] font-bold text-[var(--text-color)] leading-[18px] mb-1.5'>{currentConv?.user.name}</h6>
                <p className='text-[13px] font-medium text-[var(--text-color)] leading-[12px]'>Active</p>
             </div>
          </div>

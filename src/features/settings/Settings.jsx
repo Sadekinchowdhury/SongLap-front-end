@@ -7,6 +7,7 @@ import { Camera, Pen } from "lucide-react";
 
 function Settings() {
    const [file, setFile] = useState(null);
+   const [changePic, setChangePic] = useState(null);
    const { user } = useContext(AuthContext);
    const [dropdown, setDropdown] = useState(null);
 
@@ -16,6 +17,7 @@ function Settings() {
          const imageUrl = URL.createObjectURL(selectedFile);
          setFile(imageUrl);
       }
+      setChangePic(selectedFile);
    };
 
    return (
@@ -42,11 +44,7 @@ function Settings() {
                      {/* Profile Image */}
                      <img
                         className='w-full h-full border-white rounded-full object-cover'
-                        src={
-                           file ||
-                           user.avatar ||
-                           "https://img.freepik.com/premium-vector/default-avatar-profile-icon-social-media-user-image-gray-avatar-icon-blank-profile-silhouette-vector-illustration_561158-3407.jpg"
-                        }
+                        src={file || `http://localhost:3000/uploads/avatar/${user?.avatar}`}
                         alt='Profile'
                      />
 
@@ -71,7 +69,7 @@ function Settings() {
                </div>
             </div>
             <div className='py-5'>
-               <PersonalInfo dropdown={dropdown} setDropdown={setDropdown} />
+               <PersonalInfo changePic={changePic} dropdown={dropdown} setDropdown={setDropdown} />
                <Security dropdown={dropdown} setDropdown={setDropdown} />
                <Help dropdown={dropdown} setDropdown={setDropdown} />
             </div>
