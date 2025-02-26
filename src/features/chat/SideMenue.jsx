@@ -23,7 +23,7 @@ const SideMenue = () => {
                {SideBarIcon.map((item) => {
                   return (
                      <>
-                        <li className='mt-10'>
+                        <li key={item.id} className='mt-10'>
                            <Link to={item.path} key={item.name} className=''>
                               {item.icon}
                            </Link>

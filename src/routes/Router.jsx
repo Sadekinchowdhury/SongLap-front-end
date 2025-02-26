@@ -11,6 +11,7 @@ import Register from "../features/auth/Register";
 import PrivateRoute from "./PrivateRoute";
 import Conversation from "../features/chat/conversation/Conversation";
 import Settings from "../features/settings/Settings";
+import Favourite from "../features/favourite/Favourite";
 
 const router = createBrowserRouter([
    {
@@ -62,6 +63,10 @@ const router = createBrowserRouter([
          {
             path: "settings",
             element: <Settings />,
+         },
+         {
+            path: "favourite",
+            element: <Favourite />,
          },
       ],
    },

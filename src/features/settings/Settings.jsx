@@ -64,7 +64,7 @@ function Settings() {
                   </div>
 
                   {/* User Info */}
-                  <h3 className='text-[16px] font-semibold mt-5 mb-2'>{user.name}</h3>
+                  <h3 className='text-[16px] font-semibold mt-5 mb-2 text-[var(--text-color)]'>{user.name}</h3>
                   <p className='text-green-500'>Active</p>
                </div>
             </div>

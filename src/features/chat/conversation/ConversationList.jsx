@@ -72,7 +72,7 @@ const ConversationList = () => {
                      }}
                      key={item.id}
                      className={`flex justify-between py-4 items-center cursor-pointer transition duration-300 ${
-                        item.id === currentConversationId ? "bg-gray-700 rounded-[5px] px-[12px] py-5px" : ""
+                        item.id === currentConversationId ? "bg-gray-400 rounded-[5px] px-[12px] py-5px" : ""
                      }`}>
                      <div className='flex items-center'>
                         <img

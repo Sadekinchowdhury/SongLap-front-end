@@ -124,13 +124,17 @@ const Chat = () => {
                                  />
                               )}
                            </div>
-                           <div className='absolute bottom-0 right-2 hidden group-hover:flex flex-col items-center'>
-                              <button
-                                 onClick={() => deleteMessage(currentConversationId, msg._id)}
-                                 className='p-1 bg-gray-200 rounded-full hover:bg-red-500 hover:text-white transition relative group'>
-                                 delete &#x22EE;
-                              </button>
-                           </div>
+                           {user?._id == msg.sender.id ? (
+                              <div className='absolute bottom-0 right-2 hidden group-hover:flex flex-col items-center'>
+                                 <button
+                                    onClick={() => deleteMessage(currentConversationId, msg._id)}
+                                    className='p-1 bg-gray-200 rounded-full hover:bg-red-500 hover:text-white transition relative group'>
+                                    delete &#x22EE;
+                                 </button>
+                              </div>
+                           ) : (
+                              <></>
+                           )}
                         </div>
                      </div>
                   ) : (

@@ -7,7 +7,7 @@ const Security = ({ dropdown, setDropdown }) => {
       <>
          <div
             onClick={() => setDropdown(isOpen ? "" : "security")} // Toggle logic
-            className='flex items-center py-5 px-4 border-t border-gray-300 justify-between cursor-pointer'>
+            className='flex items-center py-5 px-4 border-t border-gray-300 justify-between cursor-pointer text-[var(--text-color)]'>
             <div className='flex items-center'>
                <Shield className='w-5 h-5 mr-3 text-blue-500' />
                <h5>Security</h5>

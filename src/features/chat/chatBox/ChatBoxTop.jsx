@@ -1,12 +1,12 @@
 import { useContext } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 
-const ChatBoxTop = () => {
+const ChatBoxTop = ({ handleShowProfile }) => {
    const { currentConv } = useContext(AuthContext);
 
    return (
       <div className='sticky top-2 grid grid-cols-2 bg-[var(--background-color)] rounded-2xl p-3'>
-         <div className='flex py-4 items-center gap-x-3 cursor-pointer'>
+         <div onClick={() => handleShowProfile(currentConv)} className='flex py-4 items-center gap-x-3 cursor-pointer'>
             <div>
                <img
                   src={`http://localhost:3000/uploads/avatar/${currentConv?.user.avatar}`}
