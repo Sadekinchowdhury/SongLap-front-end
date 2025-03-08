@@ -44,7 +44,7 @@ const Profile = ({ handleShowProfile }) => {
          console.error("Error:", error);
       }
    };
-   console.log(currentConv?.conversation.favourite.isFavourite);
+
    return (
       <div>
          <button onClick={handleShowProfile} className='text-2xl font-bold'>

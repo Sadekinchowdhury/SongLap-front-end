@@ -13,22 +13,22 @@ const SideMenue = () => {
          className={` border-none md:border-r md:border-[#eff1f2] min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)] py-5 flex justify-between flex-col gap-y-4 `}>
          <div className=''>
             <div className='flex justify-center items-center border-b border-[#eff1f2] py-10'>
-               <img
-                  className='w-[50px] h-[50px] rounded-[50%] border-4 border-[var(--primary-color)]'
-                  src={`http://localhost:3000/uploads/avatar/${user?.avatar}`}
-                  alt=''
-               />
+               <Link to={"/message/settings"}>
+                  <img
+                     className='w-[50px] h-[50px] rounded-[50%] border-4 border-[var(--primary-color)]'
+                     src={`http://localhost:3000/uploads/avatar/${user?.avatar}`}
+                     alt=''
+                  />
+               </Link>
             </div>
             <ul className='text-center'>
                {SideBarIcon.map((item) => {
                   return (
-                     <>
-                        <li key={item.id} className='mt-10'>
-                           <Link to={item.path} key={item.name} className=''>
-                              {item.icon}
-                           </Link>
-                        </li>
-                     </>
+                     <li key={item.id} className='mt-10'>
+                        <Link to={item.path} key={item.name} className=''>
+                           {item.icon}
+                        </Link>
+                     </li>
                   );
                })}
             </ul>

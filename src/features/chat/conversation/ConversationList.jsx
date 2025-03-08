@@ -4,7 +4,7 @@ import { AuthContext } from "../../../context/AuthProvider";
 import { MessageCircle, Phone, User } from "lucide-react";
 
 const ConversationList = () => {
-   const { setCurrentConversationId, currentConversationId, setCurrentConv } = useContext(AuthContext);
+   const { setCurrentConversationId, currentConversationId, setCurrentConv, conv } = useContext(AuthContext);
    const [conversationData, setConversationData] = useState([]);
    const [countIndex, setcountIndex] = useState(1);
 
@@ -30,7 +30,7 @@ const ConversationList = () => {
          }
       };
       getConversation();
-   }, [currentConversationId]);
+   }, [currentConversationId, conv]);
 
    return (
       <div>

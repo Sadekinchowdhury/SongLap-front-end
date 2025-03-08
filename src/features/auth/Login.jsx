@@ -36,7 +36,7 @@ const Login = () => {
          if (result.user) {
             setUser(result.user);
             toast.success("Successfully LogIn");
-            navigate("/message");
+            navigate("/message", { replace: true });
          }
       } catch (err) {
          console.error("Error during login:", err);

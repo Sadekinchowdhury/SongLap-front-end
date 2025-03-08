@@ -13,7 +13,7 @@ const SearchModal = ({ handleModal }) => {
 
       let timeout = setTimeout(() => {
          handleSubmit();
-      }, 3000);
+      }, 2000);
       setTypingTimeOut(timeout);
    };
 
@@ -58,6 +58,7 @@ const SearchModal = ({ handleModal }) => {
          });
 
          const data = await response.json();
+
          if (data.success) {
             setConv(!conv);
          }

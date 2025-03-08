@@ -43,7 +43,6 @@ const Chat = () => {
 
             // Ensure messages is always an array
             setMessages(result.data || []);
-            console.log(result.data, "api data");
          }
       } catch (err) {
          console.log("Error fetching messages:", err);
