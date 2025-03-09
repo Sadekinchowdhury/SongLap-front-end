@@ -35,7 +35,7 @@ const ConversationList = () => {
    return (
       <div>
          {/* Chat,Call and Contact button here */}
-         <div className='py-5 flex items-center justify-between'>
+         <div className='py-5 flex items-center gap-x-1 px-4'>
             <Link
                onClick={() => handleActive(1)}
                className={`flex items-center gap-1 border-none text-[12px] rounded-[50px] py-1 px-4 font-bold ${
@@ -71,8 +71,8 @@ const ConversationList = () => {
                         setCurrentConv(item);
                      }}
                      key={item.id}
-                     className={`flex justify-between py-4 items-center cursor-pointer transition duration-300 ${
-                        item.id === currentConversationId ? "bg-gray-400 rounded-[5px] px-[12px] py-5px" : ""
+                     className={`flex justify-between py-3 my-2 px-4 items-center cursor-pointer transition duration-300 ${
+                        item.id === currentConversationId ? "bg-gray-400 " : ""
                      }`}>
                      <div className='flex items-center'>
                         <img
@@ -83,10 +83,10 @@ const ConversationList = () => {
 
                         <div>
                            {" "}
-                           <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[14px] mb-1.5'>
+                           <h6 className='text-[14px] font-bold text-[var(--text-color)] leading-[12px] mb-1'>
                               {item.user.name}
                            </h6>
-                           <p className='text-[12px] text-[var(--text-color)]'>Can you here me..</p>
+                           <p className='text-[11px] text-[var(--text-color)]'>Can you here me..</p>
                         </div>
                      </div>
 

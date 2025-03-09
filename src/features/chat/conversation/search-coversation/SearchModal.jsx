@@ -2,11 +2,10 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../../../../context/AuthProvider";
 
 const SearchModal = ({ handleModal }) => {
-   const { conv, setConv } = useContext(AuthContext); // For instant loading conversation list
-   const [email_or_phone, setEmailOrPhone] = useState(""); // User input field
-   const [typingTimout, setTypingTimeOut] = useState(null); // Timing set for form submit
-   const [user, setUser] = useState([]); // Find conversation user not login user
-
+   const { conv, setConv } = useContext(AuthContext);
+   const [userInput, setUserInput] = useState("");
+   const [typingTimout, setTypingTimeOut] = useState(null);
+   const [user, setUser] = useState();
    // Handle key up event
    const handleKeyUp = () => {
       clearTimeout(typingTimout);
@@ -19,22 +18,21 @@ const SearchModal = ({ handleModal }) => {
 
    // Handle input value change
    const handleInputChange = (e) => {
-      setEmailOrPhone(e.target.value);
+      setUserInput(e.target.value);
    };
 
    // Fetch users from search
    const handleSubmit = async () => {
-      if (!email_or_phone.trim()) return; // ✅ Prevent empty requests
+      if (!userInput.trim()) return; // ✅ Prevent empty requests
       try {
          const response = await fetch("http://localhost:3000/users/search", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email_or_phone }),
+            body: JSON.stringify({ userInput }),
             credentials: "include",
          });
 
          const data = await response.json();
-
          setUser(data.data || []);
       } catch (error) {
          console.error("Error fetching data:", error);
@@ -82,8 +80,8 @@ const SearchModal = ({ handleModal }) => {
                <input
                   className='mt-3 w-full p-2 border rounded-md outline-none text-gray-900 dark:text-white dark:bg-gray-700'
                   type='text'
-                  name='email_or_phone'
-                  value={email_or_phone}
+                  name='userInput'
+                  value={userInput}
                   onChange={handleInputChange}
                   onKeyUp={handleKeyUp}
                   placeholder='Type a name...'

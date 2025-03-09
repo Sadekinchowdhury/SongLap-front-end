@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Mic, MicOff, Video, VideoOff, PhoneOff, RefreshCcw, PhoneIncoming } from "lucide-react"; // Import Lucide Icons
+import { Mic, MicOff, Video, VideoOff, PhoneOff, RefreshCcw } from "lucide-react"; // Import Lucide Icons
 import useSocket from "../../../../hooks/useSocket";
 
 const VideoCallWindow = () => {
@@ -11,14 +11,13 @@ const VideoCallWindow = () => {
    const [stream, setStream] = useState(null);
    const [callEnded, setCallEnded] = useState(false);
 
-   // কনফিগারেশন
+   const dragRef = useRef(null);
+   const dragTarget = useRef(null);
+
    const config = {
-      iceServers: [
-         { urls: "stun:stun.l.google.com:19302" }, // গুগলের STUN সার্ভার ব্যবহার করুন
-      ],
+      iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
    };
 
-   // কানেকশন তৈরি করুন
    const peerConnection = useRef(new RTCPeerConnection(config)).current;
 
    // Function to start a call
@@ -72,9 +71,24 @@ const VideoCallWindow = () => {
          socket.on("receiveAnswer", async ({ sdp }) => {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
          });
+         socket.on("endCall", () => {
+            // Stop the peer connection and close the video stream
+            if (stream) {
+               stream.getTracks().forEach((track) => track.stop());
+            }
+            setStream(null);
+            setCallEnded(true);
+            if (localVideoRef.current) {
+               localVideoRef.current.srcObject = null;
+            }
+
+            // Close the window if allowed
+            setTimeout(() => {
+               window.close();
+            });
+         });
       }
 
-      // Handle remote stream (Robin's video and audio)
       peerConnection.ontrack = (event) => {
          // Add the remote stream to the video element
          if (event.streams && event.streams[0]) {
@@ -120,18 +134,65 @@ const VideoCallWindow = () => {
       if (localVideoRef.current) {
          localVideoRef.current.srcObject = null;
       }
+      // Notify the opponent that the call has ended
+      if (socket) {
+         socket.emit("endCall");
+      }
+      // Close the window if allowed
+      setTimeout(() => {
+         window.close();
+      });
    };
 
+   useEffect(() => {
+      if (!dragRef.current || !dragTarget.current) {
+         return;
+      }
+
+      const handleDragStart = (event) => {
+         event.dataTransfer.setData("text/plain", "");
+      };
+
+      const handleDragOver = (event) => {
+         event.preventDefault();
+         const draggedElement = dragRef.current;
+         draggedElement.style.position = "absolute";
+         draggedElement.style.top = event.clientY + "px";
+         draggedElement.style.left = event.clientX + "px";
+      };
+
+      const handleDragLeave = (event) => {};
+      const handleDragDrop = (event) => {
+         event.preventDefault();
+         const draggedElement = dragRef.current;
+         draggedElement.style.position = "absolute";
+         draggedElement.style.top = event.clientY + "px";
+         draggedElement.style.left = event.clientX + "px";
+      };
+
+      dragRef.current.addEventListener("dragstart", handleDragStart);
+      dragTarget.current.addEventListener("dragover", handleDragOver);
+      dragTarget.current.addEventListener("dragleave", handleDragLeave);
+      dragTarget.current.addEventListener("drop", handleDragDrop);
+
+      return () => {
+         dragRef.current.removeEventListener("dragstart", handleDragStart);
+         dragTarget.current.removeEventListener("dragover", handleDragOver);
+         dragTarget.current.removeEventListener("dragleave", handleDragLeave);
+         dragTarget.current.removeEventListener("drop", handleDragDrop);
+      };
+   }, []);
+
    return (
-      <div className='relative w-screen h-screen bg-black flex justify-center items-center'>
+      <div ref={dragTarget} className='relative w-screen h-screen bg-black flex justify-center items-center'>
          <video ref={remoteVideoRef} autoPlay playsInline className='w-full h-full object-cover '></video>
-         <div className='absolute bottom-8 right-1'>
+         <div ref={dragRef} draggable={true} className='absolute transform bottom-5 right-8 '>
             <video
                draggable='true'
                ref={localVideoRef}
                autoPlay
                playsInline
-               className='w-96 h-96  flex object-cover z-50'></video>
+               className='w-72 h-72  flex object-cover z-50'></video>
          </div>
 
          {/* Control Buttons */}

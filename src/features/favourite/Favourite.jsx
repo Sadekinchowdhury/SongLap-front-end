@@ -4,10 +4,8 @@ import { Heart } from "lucide-react";
 
 const Favourite = () => {
    const { user } = useContext(AuthContext);
-   const [favouriteUser, setFavouriteUser] = useState(null); // Initialize as null to avoid mapping on undefined
+   const [favouriteUser, setFavouriteUser] = useState(null);
    const [conversation, setConversation] = useState([]);
-
-   const [isFavourite, setIsFavourite] = useState(false);
 
    const handleFavourite = async (currentId, participant) => {
       await toggleFavourite(currentId, participant);
@@ -70,7 +68,7 @@ const Favourite = () => {
       getFavouriteConversation();
    }, []);
 
-   if (!favouriteUser) return <p>Loading...</p>; // Prevents mapping on undefined data
+   if (!favouriteUser) return <p>Loading...</p>;
 
    return (
       <div>
@@ -88,10 +86,10 @@ const Favourite = () => {
          {conversation.length > 0 && (
             <div className='py-6 px-3 border-b border-gray-200'>
                {conversation
-                  ?.filter((item) => item.favourite.isFavourite === false) // Keep only non-favourite items
-                  .filter((item) => item.creator.id === user._id || item.participant.id === user._id) // Ensure user is part of the conversation
+                  ?.filter((item) => item.favourite.isFavourite === false)
+                  .filter((item) => item.creator.id === user._id || item.participant.id === user._id)
                   .map((item) => {
-                     const chatUser = item.creator.id === user._id ? item.participant : item.creator; // Get the other user
+                     const chatUser = item.creator.id === user._id ? item.participant : item.creator;
 
                      return (
                         <div key={item?._id} className='flex items-center justify-between my-4  transition-all duration-300'>

@@ -38,7 +38,6 @@ const Message = () => {
                      <>
                         {showProfile ? (
                            <>
-                              {" "}
                               {/* Chat Header */}
                               <div className='mb-2'>
                                  <ChatBoxTop handleShowProfile={handleShowProfile} />

@@ -73,7 +73,11 @@ const router = createBrowserRouter([
    },
    {
       path: "/call/:id",
-      element: <VideoCallWindow />,
+      element: (
+         <PrivateRoute>
+            <VideoCallWindow />
+         </PrivateRoute>
+      ),
    },
 ]);
 

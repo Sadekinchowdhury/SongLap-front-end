@@ -6,7 +6,7 @@ const SearchConversation = () => {
    const { handleModal, isModalOpen } = useContext(AuthContext);
 
    return (
-      <div className={`relative z-50 flex justify-between pt-5 transition-all`}>
+      <div className={`relative z-50 flex justify-between pt-5 transition-all px-4`}>
          <div>
             <p className='text-2xl font-bold mb-1.5 leading-[20px] text-[var(--text-color)]'>Chat</p>
             <p className='text-[14px] leading-[20px] text-[var(--text-color)]'>Chat With Your Friend</p>

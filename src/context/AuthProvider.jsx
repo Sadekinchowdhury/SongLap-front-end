@@ -9,11 +9,11 @@ const AuthProvider = ({ children }) => {
    const [currentConversationId, setCurrentConversationId] = useState(null); // Find conversation by id
    const [singleConversation, setSingleConversation] = useState(null); // Pich of conversation data
 
-   const [currentConv, setCurrentConv] = useState(null);
+   const [currentConv, setCurrentConv] = useState(null); // Current Conversation
 
    const [conv, setConv] = useState(false); // This state use for instantly conversation user add
 
-   const [showSideBar, setShowSideBar] = useState(true);
+   const [showSideBar, setShowSideBar] = useState(true); // Left sidebar on off
 
    // search conversation modal
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -22,8 +22,7 @@ const AuthProvider = ({ children }) => {
 
    const [rcvData, setRcvData] = useState(null);
 
-   // Search conversation modal
-
+   // Conversation search modal
    const handleModal = () => {
       setIsModalOpen(!isModalOpen);
    };
@@ -97,7 +96,6 @@ const AuthProvider = ({ children }) => {
    }, [currentConversationId]);
 
    return (
-      // Wrap by provider for using global data
       <AuthContext.Provider
          value={{
             user,

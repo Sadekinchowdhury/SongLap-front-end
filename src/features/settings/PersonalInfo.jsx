@@ -1,6 +1,7 @@
 import { ChevronDown, User } from "lucide-react";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
+import { toast } from "react-toastify";
 
 const PersonalInfo = ({ dropdown, setDropdown, changePic }) => {
    const { user, setUser } = useContext(AuthContext);
@@ -32,9 +33,11 @@ const PersonalInfo = ({ dropdown, setDropdown, changePic }) => {
          const result = await response.json();
 
          setUser(result.updatedUser);
+         if (response.ok) {
+            toast.success("Profile Updated Successfully");
+         }
       } catch (error) {
-         console.error("Error:", error);
-         alert("Error updating profile");
+         alert("Error updating profile", error);
       }
    };
 

@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { CornerDownLeft, CornerDownRight } from "lucide-react";
 
 const Login = () => {
    const { setUser } = useContext(AuthContext);
@@ -63,7 +64,7 @@ const Login = () => {
                      onChange={handlData}
                   />
                </div>
-               <div className='py-4'>
+               <div className='pt-4 pb-2'>
                   <label htmlFor='' className='text-[18px] leading-[28px] font-semibold text-[var(--text-color)]'>
                      Password
                   </label>
@@ -76,6 +77,12 @@ const Login = () => {
                      onChange={handlData}
                   />
                </div>
+               <p className='text-[12px] font-normal relative'>
+                  If You have no account Please{" "}
+                  <Link to={"/register"} className='text-[12px] hover:underline font-semibold text-blue-600 pl-1'>
+                     Sign-Up
+                  </Link>{" "}
+               </p>
                <button
                   type='submit'
                   className='border rounded-sm border-gray-200 py-2 bg-blue-500 hover:bg-gray-300 transition duration-300 text-[16px] font-semibold px-8 flex justify-self-center mt-2 md:mt-5'>

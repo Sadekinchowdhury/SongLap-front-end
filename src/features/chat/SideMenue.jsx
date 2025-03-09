@@ -1,18 +1,18 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import ThemeToggle from "../theme/ToglleThem";
 import { SideBarIcon } from "/src/features/chat/SideBarIcon.jsx";
 import { AuthContext } from "../../context/AuthProvider";
-
 import { Link } from "react-router-dom";
 import { LogOut } from "lucide-react";
 
 const SideMenue = () => {
    const { user, handleLogOut } = useContext(AuthContext);
+   const [showborder, setShowBorder] = useState(1);
    return (
       <div
-         className={` border-none md:border-r md:border-[#eff1f2] min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)] py-5 flex justify-between flex-col gap-y-4 `}>
+         className={` min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)] py-5 flex justify-between flex-col gap-y-4 `}>
          <div className=''>
-            <div className='flex justify-center items-center border-b border-[#eff1f2] py-10'>
+            <div className='flex justify-center items-center  py-10'>
                <Link to={"/message/settings"}>
                   <img
                      className='w-[50px] h-[50px] rounded-[50%] border-4 border-[var(--primary-color)]'
@@ -24,7 +24,10 @@ const SideMenue = () => {
             <ul className='text-center'>
                {SideBarIcon.map((item) => {
                   return (
-                     <li key={item.id} className='mt-10'>
+                     <li
+                        key={item.id}
+                        onClick={() => setShowBorder(item.id)}
+                        className={`mt-10 ${showborder == item.id ? "border-r-2 border-r-blue-700" : ""}`}>
                         <Link to={item.path} key={item.name} className=''>
                            {item.icon}
                         </Link>
@@ -34,7 +37,9 @@ const SideMenue = () => {
             </ul>
          </div>
          <ul className='text-center'>
-            <li className='cursor-pointer mt-10'>
+            <li
+               onClick={() => setShowBorder(6)}
+               className={`cursor-pointer mt-10 ${showborder == 6 ? "border-r-2 border-r-blue-700" : ""}`}>
                <ThemeToggle />
             </li>
             <li className='cursor-pointer mt-10'>

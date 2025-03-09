@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import { PhoneCall, PhoneOff } from "lucide-react";
-
 import { AuthContext } from "../../context/AuthProvider";
 import useSocket from "../../hooks/useSocket";
 

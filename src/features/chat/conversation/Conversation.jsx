@@ -10,7 +10,7 @@ const Conversation = () => {
             <Recent />
             <ProfileSlider />
          </div>
-         <div className='px-4'>
+         <div className=''>
             <SearchConversation />
             <ConversationList />
          </div>
