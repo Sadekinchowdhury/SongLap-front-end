@@ -1,6 +1,8 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useSocket from "../../../hooks/useSocket";
+import { PhotoProvider, PhotoView } from "react-photo-view";
+import "react-photo-view/dist/react-photo-view.css";
 
 const Chat = () => {
    const socket = useSocket();
@@ -116,11 +118,15 @@ const Chat = () => {
                            </div>
                            <div className='w-full'>
                               {msg.attachment && (
-                                 <img
-                                    src={`http://localhost:3000${msg.attachment}`}
-                                    className='max-w-[250px] h-[200px] object-cover rounded-lg shadow-md'
-                                    alt='Attachment'
-                                 />
+                                 <PhotoProvider>
+                                    <PhotoView src={`http://localhost:3000${msg.attachment}`}>
+                                       <img
+                                          src={`http://localhost:3000${msg.attachment}`}
+                                          alt='Thumbnail'
+                                          className='max-w-[250px] h-[200px] object-cover rounded-lg shadow-md'
+                                       />
+                                    </PhotoView>
+                                 </PhotoProvider>
                               )}
                            </div>
                            {user?._id == msg.sender.id ? (

@@ -65,3 +65,12 @@ input {
    display: none;
 }
 /*-----------------------------------------*/
+
+/* Profile slider */
+
+.slick-list {
+   max-height: 100px;
+}
+.slick-slide {
+   margin: 0 5px;
+}

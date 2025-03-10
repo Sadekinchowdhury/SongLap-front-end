@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
+import { toast } from "react-toastify";
 
 const InputMessage = () => {
    // Global object load From AuthProvider
@@ -18,6 +19,11 @@ const InputMessage = () => {
    // Send message
    const handleSubmit = async (event) => {
       event.preventDefault();
+
+      if (message.text.length < 1) {
+         toast.warn("Text something...");
+         return;
+      }
 
       const formData = new FormData();
       formData.append("avatar", avatar);
@@ -42,6 +48,7 @@ const InputMessage = () => {
 
          const result = await response.json();
          setShowConversationList(!showConversationList);
+         setAvatar(null);
 
          if (result) {
             setMessage({ text: "", attachment: "" });
