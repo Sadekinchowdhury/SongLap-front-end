@@ -16,23 +16,23 @@ const Message = () => {
       setShowProfile(!showProfile);
    };
    return (
-      <div className={`${showSideBar ? "md:grid md:grid-cols-12" : ""} gap-0`}>
+      <div className={`${showSideBar ? "grid grid-cols-13" : ""} gap-0`}>
          {/* Sidebar (1 column) */}
-         <div className={`${showSideBar ? "block" : "hidden opacity-0"} transition duration-300 md:col-span-1 opacity-100`}>
+         <div className={`${showSideBar ? "block col-span-1" : "hidden opacity-0"} transition duration-300  opacity-100`}>
             <SideMenue />
          </div>
 
-         <div className={`md:col-span-11 md:grid md:grid-cols-12`}>
+         <div className={`grid ${showSideBar ? "col-span-12 grid-cols-13" : " grid-cols-14"}`}>
             <>
                <div
                   className={`${
-                     showSideBar ? "md:col-span-3" : "md:col-span-4"
+                     showSideBar ? "md:col-span-4" : "md:col-span-4"
                   } border-none md:border-r border-indigo-100 bg-[var(--background-color)] overflow-y-auto h-screen conversation-scrollbar transition duration-200`}>
                   <Outlet />
                </div>
                <div
                   className={`${
-                     showSideBar ? "md:col-span-9" : "md:col-span-8"
+                     showSideBar ? "col-span-9" : "col-span-10"
                   } p-5 md:p-[45px] bg-[var(--surface-color)] h-screen flex flex-col transition duration-200 relative`}>
                   {currentConversationId ? (
                      <>

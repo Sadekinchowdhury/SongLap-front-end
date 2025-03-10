@@ -6,14 +6,13 @@ const AuthProvider = ({ children }) => {
    const [user, setUser] = useState(null); // Login user load
    const [loading, setLoading] = useState(true); // loading
    const [error, setError] = useState(null); // Error handling
-   const [currentConversationId, setCurrentConversationId] = useState(null); // Find conversation by id
-   const [singleConversation, setSingleConversation] = useState(null); // Pich of conversation data
+   const [currentConversationId, setCurrentConversationId] = useState(null);
+   const [singleConversation, setSingleConversation] = useState(null);
+   const [currentConv, setCurrentConv] = useState(null);
 
-   const [currentConv, setCurrentConv] = useState(null); // Current Conversation
-
-   const [conv, setConv] = useState(false); // This state use for instantly conversation user add
-
-   const [showSideBar, setShowSideBar] = useState(true); // Left sidebar on off
+   const [conv, setConv] = useState(false);
+   const [showSideBar, setShowSideBar] = useState(true);
+   const [showConversationList, setShowConversationList] = useState(false);
 
    // search conversation modal
    const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +20,7 @@ const AuthProvider = ({ children }) => {
    const [open, setOpen] = useState(false);
 
    const [rcvData, setRcvData] = useState(null);
+   const [conversationList, setConversationList] = useState([]);
 
    // Conversation search modal
    const handleModal = () => {
@@ -69,6 +69,25 @@ const AuthProvider = ({ children }) => {
       }
       getUser();
    }, []);
+
+   // Get user conversation data
+   useEffect(() => {
+      const getConversation = async () => {
+         try {
+            const response = await fetch("http://localhost:3000/inbox/conversation", {
+               method: "GET",
+               headers: { "Content-Type": "application/json" },
+               credentials: "include",
+            });
+
+            const result = await response.json();
+            setConversationList(result.data);
+         } catch (error) {
+            console.error("Error fetching data:", error);
+         }
+      };
+      getConversation();
+   }, [currentConversationId, conv, showConversationList]);
 
    // Fetch single conversation when `conversationid` changes
    useEffect(() => {
@@ -119,6 +138,9 @@ const AuthProvider = ({ children }) => {
             setOpen,
             rcvData,
             setRcvData,
+            conversationList,
+            setShowConversationList,
+            showConversationList,
          }}>
          {children}
       </AuthContext.Provider>

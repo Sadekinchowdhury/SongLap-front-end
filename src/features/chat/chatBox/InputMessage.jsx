@@ -3,7 +3,8 @@ import { AuthContext } from "../../../context/AuthProvider";
 
 const InputMessage = () => {
    // Global object load From AuthProvider
-   const { singleConversation, user, currentConversationId } = useContext(AuthContext);
+   const { singleConversation, user, currentConversationId, setShowConversationList, showConversationList } =
+      useContext(AuthContext);
 
    // Image setup
    const [avatar, setAvatar] = useState(null);
@@ -40,6 +41,8 @@ const InputMessage = () => {
          });
 
          const result = await response.json();
+         setShowConversationList(!showConversationList);
+
          if (result) {
             setMessage({ text: "", attachment: "" });
          }
