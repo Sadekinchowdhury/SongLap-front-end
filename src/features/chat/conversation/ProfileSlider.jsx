@@ -2,8 +2,13 @@ import Slider from "react-slick";
 /*React Slick Slider css*/
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { useContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import { AuthContext } from "../../../context/AuthProvider";
 
 function ProfileSlider() {
+   const { user } = useContext(AuthContext);
+   const [users, setUsers] = useState([]);
    const settings = {
       infinite: true,
       slidesToShow: 3,
@@ -11,54 +16,46 @@ function ProfileSlider() {
       autoplay: true,
       autoplaySpeed: 2000,
    };
+
+   const getUsers = async () => {
+      try {
+         const respone = await fetch("http://localhost:3000/users", {
+            method: "GET",
+            credentials: "include",
+         });
+         const result = await respone.json();
+         setUsers(result);
+      } catch (err) {
+         toast.error(err);
+      }
+   };
+
+   useEffect(() => {
+      getUsers();
+   }, []);
+
    return (
       <div className='slider-container'>
          <Slider ref={(slider) => slider} {...settings}>
-            <div className='relative min-h-[100px]'>
-               <img
-                  className='w-full max-h-[100px] h-full rounded-2xl object-cover absolute left-0 top-0 z-0'
-                  src='https://images.unsplash.com/photo-1453396450673-3fe83d2db2c4?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwd2VtZW58ZW58MHx8MHx8fDA%3D'
-                  alt=''
-               />
-               <div className='absolute bottom-[15px] right-[15px] w-[6px] h-[6px] rounded-[50%] bg-green-600'></div>
-               <p className='text-[10px] text-white absolute bottom-[10px] font-medium left-[5px]'>Monir hossain</p>
-            </div>
-            <div className='relative min-h-[100px]'>
-               <img
-                  className='w-full max-h-[100px] h-full rounded-2xl object-cover absolute left-0 top-0 z-0'
-                  src='https://images.unsplash.com/photo-1527010154944-f2241763d806?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDExfHx8ZW58MHx8fHx8'
-                  alt=''
-               />
-               <div className='absolute bottom-[15px] right-[15px] w-[6px] h-[6px] rounded-[50%] bg-amber-500'></div>
-               <p className='text-[10px] text-white absolute bottom-[10px] font-medium left-[5px]'>Monir hossain</p>
-            </div>
-            <div className='relative min-h-[100px]'>
-               <img
-                  className='w-full max-h-[100px] h-full rounded-2xl object-cover absolute left-0 top-0 z-0'
-                  src='https://images.unsplash.com/photo-1619947665093-b8018e3dd1a9?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDQ2fHx8ZW58MHx8fHx8'
-                  alt=''
-               />
-               <div className='absolute bottom-[15px] right-[15px] w-[6px] h-[6px] rounded-[50%] bg-amber-500'></div>
-               <p className='text-[10px] text-white absolute bottom-[10px] font-medium left-[5px]'>Monir hossain</p>
-            </div>
-            <div className='relative min-h-[100px]'>
-               <img
-                  className='w-full max-h-[100px] h-full rounded-2xl object-cover absolute left-0 top-0 z-0'
-                  src='https://images.unsplash.com/photo-1584940120743-8981ca35b012?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDY0fHx8ZW58MHx8fHx8'
-                  alt=''
-               />
-               <div className='absolute bottom-[15px] right-[15px] w-[6px] h-[6px] rounded-[50%] bg-green-600'></div>
-               <p className='text-[10px] text-white absolute bottom-[10px] font-medium left-[5px]'>Monir hossain</p>
-            </div>
-            <div className='relative min-h-[100px]'>
-               <img
-                  className='w-full max-h-[100px] h-full rounded-2xl object-cover absolute left-0 top-0 z-0'
-                  src='https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDc1fHx8ZW58MHx8fHx8'
-                  alt=''
-               />
-               <div className='absolute bottom-[15px] right-[15px] w-[6px] h-[6px] rounded-[50%] bg-amber-500'></div>
-               <p className='text-[10px] text-white absolute bottom-[10px] font-medium left-[5px]'>Monir hossain</p>
-            </div>
+            {users
+               ?.filter((item) => item._id !== user._id)
+               .map((user) => {
+                  return (
+                     <div key={user._id} className='relative min-h-[100px]'>
+                        <img
+                           className='w-full max-h-[100px] h-full rounded-2xl object-cover absolute left-0 top-0 z-0'
+                           src={
+                              user.avatar
+                                 ? `http://localhost:3000/uploads/avatar/${user?.avatar}`
+                                 : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPl2SXEAHNjNUHu3W3m_LtVRChqnPK19A5_g&s"
+                           }
+                           alt=''
+                        />
+                        <div className='absolute bottom-[15px] right-[15px] w-[6px] h-[6px] rounded-[50%] bg-green-600'></div>
+                        <p className='text-[10px] text-white absolute bottom-[10px] font-medium left-[5px]'>{user.name}</p>
+                     </div>
+                  );
+               })}
          </Slider>
       </div>
    );

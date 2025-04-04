@@ -89,7 +89,7 @@ const Chat = () => {
                               {msg.sender.id !== user._id && (
                                  <img
                                     src={`http://localhost:3000/uploads/avatar/${msg.sender?.avatar}`}
-                                    className='w-10 h-10 mr-2 rounded-full border border-blue-700'
+                                    className='w-10 h-10 mr-2 rounded-full border border-blue-700 object-cover'
                                     alt='User Avatar'
                                  />
                               )}

@@ -9,6 +9,7 @@ const AuthProvider = ({ children }) => {
    const [currentConversationId, setCurrentConversationId] = useState(null);
    const [singleConversation, setSingleConversation] = useState(null);
    const [currentConv, setCurrentConv] = useState(null);
+   const [showCall, setShowCall] = useState(true);
 
    const [conv, setConv] = useState(false);
    const [showSideBar, setShowSideBar] = useState(true);
@@ -20,7 +21,6 @@ const AuthProvider = ({ children }) => {
    const [open, setOpen] = useState(false);
 
    const [rcvData, setRcvData] = useState(null);
-   const [conversationList, setConversationList] = useState([]);
 
    // Conversation search modal
    const handleModal = () => {
@@ -69,25 +69,6 @@ const AuthProvider = ({ children }) => {
       }
       getUser();
    }, []);
-
-   // Get user conversation data
-   useEffect(() => {
-      const getConversation = async () => {
-         try {
-            const response = await fetch("http://localhost:3000/inbox/conversation", {
-               method: "GET",
-               headers: { "Content-Type": "application/json" },
-               credentials: "include",
-            });
-
-            const result = await response.json();
-            setConversationList(result.data);
-         } catch (error) {
-            console.error("Error fetching data:", error);
-         }
-      };
-      getConversation();
-   }, [currentConversationId, conv, showConversationList]);
 
    // Fetch single conversation when `conversationid` changes
    useEffect(() => {
@@ -138,9 +119,10 @@ const AuthProvider = ({ children }) => {
             setOpen,
             rcvData,
             setRcvData,
-            conversationList,
             setShowConversationList,
             showConversationList,
+            showCall,
+            setShowCall,
          }}>
          {children}
       </AuthContext.Provider>

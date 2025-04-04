@@ -46,42 +46,49 @@ const Profile = ({ handleShowProfile }) => {
    };
 
    return (
-      <div>
-         <button onClick={handleShowProfile} className='text-2xl font-bold text-[var(--text-color)]'>
-            X
-         </button>
-         <div className='flex justify-center items-center text-center p-10 border-b-0 border-gray-100'>
+      <div className=''>
+         <div className='relative z-20'>
+            <button onClick={handleShowProfile} className='text-2xl font-bold text-[var(--text-color)]'>
+               X
+            </button>
+            <div className='flex justify-center items-center text-center p-10 border-b-0 border-gray-100'>
+               <div>
+                  <img
+                     src={`http://localhost:3000/uploads/avatar/${currentConv?.user.avatar}`}
+                     className='w-72 h-72 rounded-full border border-gray-300 object-cover'
+                     alt='Profile Image'
+                  />
+                  <h4 className='pt-7 pb-2 text-xl leading-10 text-[var(--text-color)]'>{currentConv?.user.name}</h4>
+                  <p className='text-[16px] font-normal leading-1.5 text-[var(--text-color)]'>Welcome to my home</p>
+               </div>
+            </div>
             <div>
-               <img
-                  src={`http://localhost:3000/uploads/avatar/${currentConv?.user.avatar}`}
-                  className='w-72 h-72 rounded-full border border-gray-300'
-                  alt='Profile Image'
-               />
-               <h4 className='pt-7 pb-2 text-xl leading-10 text-[var(--text-color)]'>{currentConv?.user.name}</h4>
-               <p className='text-[16px] font-normal leading-1.5 text-[var(--text-color)]'>Welcome to my home</p>
+               <div className='flex items-center justify-between py-4 mt-5 border-b border-t border border-gray-300 px-4 rounded-sm shadow-md'>
+                  <div className='flex items-center gap-x-5'>
+                     <Star className='fill-current w-4 h-4 text-[var(--text-color)]' />
+                     <span className='text-[17px] leading-4 text-[var(--text-color)]'>Add Favourite</span>
+                  </div>
+                  <Heart
+                     className={`cursor-pointer ${
+                        currentConv?.conversation.favourite.isFavourite ? "text-red-500 fill-red-500" : "text-[var(--text-color)]"
+                     }`}
+                     onClick={handleFavourite}
+                  />
+               </div>
+               <div className='flex items-center justify-between py-4 mt-5 border-b border-t border border-gray-300 px-4 rounded-sm shadow-2xl'>
+                  <div className='flex items-center gap-x-5'>
+                     <Bell className='fill-current w-4 h-4 text-[var(--text-color)]' />
+                     <span className='text-[17px] leading-4 text-[var(--text-color)]'>Mute Your Friend</span>
+                  </div>
+                  <Bell className='cursor-pointer text-[var(--text-color)]' />
+               </div>
             </div>
          </div>
-         <div>
-            <div className='flex items-center justify-between py-4 mt-5 border-b border-t border border-gray-300 px-4 rounded-sm shadow-md'>
-               <div className='flex items-center gap-x-5'>
-                  <Star className='fill-current w-4 h-4 text-[var(--text-color)]' />
-                  <span className='text-[17px] leading-4 text-[var(--text-color)]'>Add Favourite</span>
-               </div>
-               <Heart
-                  className={`cursor-pointer ${
-                     currentConv?.conversation.favourite.isFavourite ? "text-red-500 fill-red-500" : "text-[var(--text-color)]"
-                  }`}
-                  onClick={handleFavourite}
-               />
-            </div>
-            <div className='flex items-center justify-between py-4 mt-5 border-b border-t border border-gray-300 px-4 rounded-sm shadow-2xl'>
-               <div className='flex items-center gap-x-5'>
-                  <Bell className='fill-current w-4 h-4 text-[var(--text-color)]' />
-                  <span className='text-[17px] leading-4 text-[var(--text-color)]'>Mute Your Friend</span>
-               </div>
-               <Bell className='cursor-pointer text-[var(--text-color)]' />
-            </div>
-         </div>
+         <img
+            className='absolute top-0 left-0 w-full h-full object-cover opacity-10 z-10'
+            src={`http://localhost:3000/uploads/avatar/${currentConv?.user.avatar}`}
+            alt=''
+         />
       </div>
    );
 };

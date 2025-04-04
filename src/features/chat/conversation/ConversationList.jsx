@@ -4,19 +4,39 @@ import { AuthContext } from "../../../context/AuthProvider";
 import { MessageCircle, Phone, User } from "lucide-react";
 
 const ConversationList = () => {
-   const { setCurrentConversationId, currentConversationId, setCurrentConv, conversationList } = useContext(AuthContext);
-
+   const { setCurrentConversationId, currentConversationId, setCurrentConv, showConversationList, conv } =
+      useContext(AuthContext);
    const [countIndex, setcountIndex] = useState(1);
+   const [conversationList, setConversationList] = useState([]);
 
    // active chat,call,contact button when clikedffor toggle
    const handleActive = (index) => {
       setcountIndex(() => index);
    };
 
+   // Get user conversation data
+   useEffect(() => {
+      const getConversation = async () => {
+         try {
+            const response = await fetch("http://localhost:3000/inbox/conversation", {
+               method: "GET",
+               headers: { "Content-Type": "application/json" },
+               credentials: "include",
+            });
+
+            const result = await response.json();
+            setConversationList(result.data);
+         } catch (error) {
+            console.error("Error fetching data:", error);
+         }
+      };
+      getConversation();
+   }, [currentConversationId, conv, showConversationList]);
+
    return (
       <div>
          {/* Chat,Call and Contact button here */}
-         <div className='py-5 flex items-center gap-x-1 px-4'>
+         <div className='py-5 flex items-center justify-between gap-x-1 px-4'>
             <Link
                onClick={() => handleActive(1)}
                className={`flex items-center gap-1 transition duration-150 border-transparent border text-[12px] rounded-[50px] py-1 px-6 font-bold ${
@@ -59,7 +79,7 @@ const ConversationList = () => {
                         <div className='flex items-center'>
                            <img
                               src={`http://localhost:3000/uploads/avatar/${item.user?.avatar}`}
-                              className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2'
+                              className='w-12 h-12 rounded-[50%] border-2 border-pink-500 inline mr-2 object-cover'
                               alt=''
                            />
 

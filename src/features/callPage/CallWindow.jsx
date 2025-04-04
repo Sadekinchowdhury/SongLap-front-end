@@ -1,16 +1,25 @@
-import { useEffect, useRef, useState } from "react";
-import { Mic, MicOff, Video, VideoOff, PhoneOff, RefreshCcw } from "lucide-react"; // Import Lucide Icons
-import useSocket from "../../../../hooks/useSocket";
+import { useEffect, useRef, useState, useContext } from "react";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthProvider";
+import { Mic, MicOff, Video, VideoOff, PhoneOff, RefreshCcw } from "lucide-react";
+import useSocket from "../../hooks/useSocket";
 
-const VideoCallWindow = () => {
+const CallWindow = () => {
+   const { user } = useContext(AuthContext);
    const socket = useSocket();
-   const localVideoRef = useRef(null);
-   const remoteVideoRef = useRef(null);
+   const { userId } = useParams();
+   const { search } = useLocation();
+   const navigate = useNavigate();
+   const callType = new URLSearchParams(search).get("type");
+
+   const [isVideoEnabled, setIsVideoEnabled] = useState(callType === "video");
    const [isMuted, setIsMuted] = useState(false);
    const [isVideoOn, setIsVideoOn] = useState(true);
    const [stream, setStream] = useState(null);
    const [callEnded, setCallEnded] = useState(false);
 
+   const localVideoRef = useRef(null);
+   const remoteVideoRef = useRef(null);
    const dragRef = useRef(null);
    const dragTarget = useRef(null);
 
@@ -20,26 +29,55 @@ const VideoCallWindow = () => {
 
    const peerConnection = useRef(new RTCPeerConnection(config)).current;
 
+   console.log(isVideoEnabled);
+
    // Function to start a call
 
+   // const startCall = async () => {
+   //    try {
+   //       // 📌 ইউজারের ক্যামেরা ও মাইক্রোফোন এক্সেস নাও
+   //       const stream = await navigator.mediaDevices.getUserMedia({ video: isVideoEnabled, audio: true });
+
+   //       // 📌 লোকাল ভিডিওতে স্ট্রিম সেট করো
+   //       if (localVideoRef.current) {
+   //          localVideoRef.current.srcObject = stream;
+   //       }
+
+   //       // 📌 প্রতিটি ট্র্যাক যোগ করো
+   //       stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
+
+   //       // 📌 Offer তৈরি করো
+   //       const offer = await peerConnection.createOffer();
+   //       await peerConnection.setLocalDescription(offer);
+
+   //       // 📌 Signaling সার্ভারে পাঠাও
+   //       if (socket) {
+   //          socket.emit("sendOffer", { sdp: offer, type: "offer" });
+   //       }
+
+   //       setStream(stream);
+   //       setCallEnded(false);
+   //    } catch (err) {
+   //       console.error("❌ কল শুরু করতে ব্যর্থ হয়েছে:", err);
+   //    }
+   // };
    const startCall = async () => {
       try {
-         // 📌 ইউজারের ক্যামেরা ও মাইক্রোফোন এক্সেস নাও
-         const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+         const stream = await navigator.mediaDevices.getUserMedia({ video: isVideoEnabled, audio: true });
 
-         // 📌 লোকাল ভিডিওতে স্ট্রিম সেট করো
-         if (localVideoRef.current) {
-            localVideoRef.current.srcObject = stream;
+         console.log("📌 Audio Tracks:", stream.getAudioTracks());
+
+         if (stream.getAudioTracks().length === 0) {
+            console.error("❌ No audio track found. Check microphone permissions.");
          }
 
-         // 📌 প্রতিটি ট্র্যাক যোগ করো
+         localVideoRef.current.srcObject = stream;
+
          stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
 
-         // 📌 Offer তৈরি করো
          const offer = await peerConnection.createOffer();
          await peerConnection.setLocalDescription(offer);
 
-         // 📌 Signaling সার্ভারে পাঠাও
          if (socket) {
             socket.emit("sendOffer", { sdp: offer, type: "offer" });
          }
@@ -47,7 +85,7 @@ const VideoCallWindow = () => {
          setStream(stream);
          setCallEnded(false);
       } catch (err) {
-         console.error("❌ কল শুরু করতে ব্যর্থ হয়েছে:", err);
+         console.error("❌ Failed to start call:", err);
       }
    };
 
@@ -71,21 +109,23 @@ const VideoCallWindow = () => {
          socket.on("receiveAnswer", async ({ sdp }) => {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
          });
-         socket.on("endCall", () => {
-            // Stop the peer connection and close the video stream
-            if (stream) {
-               stream.getTracks().forEach((track) => track.stop());
-            }
-            setStream(null);
-            setCallEnded(true);
-            if (localVideoRef.current) {
-               localVideoRef.current.srcObject = null;
-            }
+         socket.on("endCall", ({ senderId, recipientId }) => {
+            if (senderId === user?._id && recipientId === userId) {
+               // Stop the peer connection and close the video stream
+               if (stream) {
+                  stream.getTracks().forEach((track) => track.stop());
+               }
+               setStream(null);
+               setCallEnded(true);
+               if (localVideoRef.current) {
+                  localVideoRef.current.srcObject = null;
+               }
 
-            // Close the window if allowed
-            setTimeout(() => {
-               window.close();
-            });
+               // Close the window if allowed
+               setTimeout(() => {
+                  window.close();
+               });
+            }
          });
       }
 
@@ -105,6 +145,9 @@ const VideoCallWindow = () => {
             remoteVideoRef.current = null;
             localVideoRef.current = null;
          }
+         peerConnection.ontrack = null;
+         socket?.off("receiveOffer");
+         socket?.off("receiveAnswer");
       };
    }, [socket]);
 
@@ -225,4 +268,4 @@ const VideoCallWindow = () => {
    );
 };
 
-export default VideoCallWindow;
+export default CallWindow;

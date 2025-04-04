@@ -12,7 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 import Conversation from "../features/chat/conversation/Conversation";
 import Settings from "../features/settings/Settings";
 import Favourite from "../features/favourite/Favourite";
-import VideoCallWindow from "../features/chat/chatBox/videoCall/VideoCallWindow";
+import CallWindow from "../features/callPage/CallWindow";
 
 const router = createBrowserRouter([
    {
@@ -72,10 +72,10 @@ const router = createBrowserRouter([
       ],
    },
    {
-      path: "/call/:id",
+      path: "/call/:userId",
       element: (
          <PrivateRoute>
-            <VideoCallWindow />
+            <CallWindow />
          </PrivateRoute>
       ),
    },
