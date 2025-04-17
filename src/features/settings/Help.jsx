@@ -7,7 +7,7 @@ const Help = ({ dropdown, setDropdown }) => {
       <>
          <div
             onClick={() => setDropdown(isOpen ? "" : "help")} // Toggle logic
-            className='flex items-center py-5 px-4 border-t border-gray-300 justify-between cursor-pointer text-[var(--text-color)]'>
+            className='flex items-center py-5 px-4 justify-between cursor-pointer text-[var(--text-color)]'>
             <div className='flex items-center'>
                <HelpCircle className='w-5 h-5 mr-3 text-blue-500' />
                <h5>Help</h5>

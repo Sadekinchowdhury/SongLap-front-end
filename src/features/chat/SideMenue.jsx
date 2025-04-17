@@ -10,7 +10,7 @@ const SideMenue = () => {
    const [showborder, setShowBorder] = useState(1);
    return (
       <div
-         className={` min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)] py-5 flex justify-between flex-col gap-y-4 `}>
+         className={`min-h-[100vh] max-h-[100vh] overflow-x-hidden overflow-y-scroll scrollbar-thin bg-[var(--background-color)] py-5 flex justify-between flex-col gap-y-4 `}>
          <div className=''>
             <div className='flex justify-center items-center  py-10'>
                <Link to={"/message/settings"}>

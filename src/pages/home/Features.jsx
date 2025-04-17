@@ -1,6 +1,6 @@
 const Features = () => {
   return (
-    <div className="w-full py-6 px-5 md:py-16 bg-indigo-500">
+    <div className="w-full py-6 px-5 md:py-16  ">
       <h1 className="text-center text-3xl md:text-6xl">Features for a better Experience.</h1>
       <div className="max-w-[1200px] mx-auto mt-6 md:mt-16 grid grid-cols-1 md:grid-cols-3 gap-0">
         <div className="flex p-5">

@@ -26,13 +26,13 @@ const Message = () => {
             <>
                <div
                   className={`${
-                     showSideBar ? "md:col-span-4" : "md:col-span-4"
+                     showSideBar ? "md:col-span-5 lg:col-span-4" : "md:col-span-4"
                   } border-none md:border-r border-indigo-100 bg-[var(--background-color)] overflow-y-auto h-screen conversation-scrollbar transition duration-200`}>
                   <Outlet />
                </div>
                <div
                   className={`${
-                     showSideBar ? "col-span-9" : "col-span-10"
+                     showSideBar ? "md:col-span-7 lg:col-span-9" : "col-span-10"
                   } p-5 md:p-[45px] bg-[var(--surface-color)] h-screen flex flex-col transition duration-200 relative`}>
                   {currentConversationId ? (
                      <>

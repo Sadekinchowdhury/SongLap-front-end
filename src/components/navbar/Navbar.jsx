@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
+import { LogOut, UserIcon } from "lucide-react";
 
 function Navbar() {
-   const { user,  handleLogOut } = useContext(AuthContext);
+   const { user, handleLogOut } = useContext(AuthContext);
 
    const [isOpen, setisOpen] = useState(false);
    const isToggle = () => {
@@ -11,34 +12,37 @@ function Navbar() {
    };
 
    return (
-      <div className='flex justify-center text-[var(--text-color]'>
-         <nav className='w-full fixed top-0 z-10 hidden md:hidden lg:block bg-amber-400'>
-            <div className='max-w-[1200px] mx-auto py-3 flex justify-between items-center font-semibold'>
+      <div className='flex justify-center text-[var(--text-color)]'>
+         <nav className='w-full z-10 hidden md:hidden lg:block '>
+            <div className='max-w-[1200px] mx-auto py-6 flex justify-between items-center font-semibold'>
                <div className=''>
                   <NavLink to='/'>
                      <img className='w-auto h-10' src='/src/assets/SongLap.jpg' alt='' />
                   </NavLink>
                </div>
                <div className=''>
-                  <NavLink to='/' className='mx-2'>
+                  <NavLink to='/' className='mx-4 hover:text-blue-600 transition duration-75'>
                      Home
                   </NavLink>
-                  <NavLink to='/blog' className='mx-2'>
+                  <NavLink to='/blog' className='mx-4 hover:text-blue-600 transition duration-75'>
                      Blog
                   </NavLink>
-                  <NavLink to='/about' className='mx-2'>
+                  <NavLink to='/about' className='mx-4 hover:text-blue-600 transition duration-75'>
                      About
                   </NavLink>
-                  <NavLink to='/support' className='mx-2'>
+                  <NavLink to='/support' className='mx-4 hover:text-blue-600 transition duration-75'>
                      Support
                   </NavLink>
                </div>
                <div className=''>
                   {!user ? (
-                     <NavLink to='/login'>Login</NavLink>
+                     <NavLink to='/login'>
+                        {" "}
+                        <UserIcon />{" "}
+                     </NavLink>
                   ) : (
-                     <button onClick={handleLogOut} className='mx-2'>
-                        LogOut
+                     <button onClick={handleLogOut} className='mx-2 hover:text-blue-600 transition duration-75'>
+                        <LogOut />
                      </button>
                   )}
                </div>
