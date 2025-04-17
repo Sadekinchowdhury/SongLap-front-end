@@ -1,15 +1,21 @@
 import { useEffect, useRef, useState, useContext } from "react";
-import { useParams, useLocation, useNavigate } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider";
 import { Mic, MicOff, Video, VideoOff, PhoneOff, RefreshCcw } from "lucide-react";
 import useSocket from "../../hooks/useSocket";
+import { BroadcastChannel } from "broadcast-channel";
+import { toast } from "react-toastify";
 
 const CallWindow = () => {
    const { user } = useContext(AuthContext);
+
    const socket = useSocket();
    const { userId } = useParams();
    const { search } = useLocation();
-   const navigate = useNavigate();
+   const [callInfo, setCallInfo] = useState(null);
+
+   const [callData, setCallData] = useState(null);
+
    const callType = new URLSearchParams(search).get("type");
 
    const [isVideoEnabled, setIsVideoEnabled] = useState(callType === "video");
@@ -29,46 +35,33 @@ const CallWindow = () => {
 
    const peerConnection = useRef(new RTCPeerConnection(config)).current;
 
-   console.log(isVideoEnabled);
+   useEffect(() => {
+      const channel = new BroadcastChannel("call_channel");
 
-   // Function to start a call
+      channel.onmessage = (message) => {
+         if (message.type === "call-data") {
+            if (message.senderId === user?._id || message.recipientId === user?._id) {
+               setCallInfo(message);
+               if (socket) {
+                  setTimeout(() => {
+                     socket.emit("call-details", message);
+                  });
+               }
+            }
+         }
+      };
 
-   // const startCall = async () => {
-   //    try {
-   //       // 📌 ইউজারের ক্যামেরা ও মাইক্রোফোন এক্সেস নাও
-   //       const stream = await navigator.mediaDevices.getUserMedia({ video: isVideoEnabled, audio: true });
+      return () => {
+         channel.close(); // Clean up on unmount
+      };
+   }, []);
 
-   //       // 📌 লোকাল ভিডিওতে স্ট্রিম সেট করো
-   //       if (localVideoRef.current) {
-   //          localVideoRef.current.srcObject = stream;
-   //       }
-
-   //       // 📌 প্রতিটি ট্র্যাক যোগ করো
-   //       stream.getTracks().forEach((track) => peerConnection.addTrack(track, stream));
-
-   //       // 📌 Offer তৈরি করো
-   //       const offer = await peerConnection.createOffer();
-   //       await peerConnection.setLocalDescription(offer);
-
-   //       // 📌 Signaling সার্ভারে পাঠাও
-   //       if (socket) {
-   //          socket.emit("sendOffer", { sdp: offer, type: "offer" });
-   //       }
-
-   //       setStream(stream);
-   //       setCallEnded(false);
-   //    } catch (err) {
-   //       console.error("❌ কল শুরু করতে ব্যর্থ হয়েছে:", err);
-   //    }
-   // };
    const startCall = async () => {
       try {
          const stream = await navigator.mediaDevices.getUserMedia({ video: isVideoEnabled, audio: true });
 
-         console.log("📌 Audio Tracks:", stream.getAudioTracks());
-
          if (stream.getAudioTracks().length === 0) {
-            console.error("❌ No audio track found. Check microphone permissions.");
+            toast.error("❌ No audio track found. Check microphone permissions.");
          }
 
          localVideoRef.current.srcObject = stream;
@@ -85,7 +78,7 @@ const CallWindow = () => {
          setStream(stream);
          setCallEnded(false);
       } catch (err) {
-         console.error("❌ Failed to start call:", err);
+         toast.error("Failed to start call", err);
       }
    };
 
@@ -93,6 +86,18 @@ const CallWindow = () => {
       startCall();
 
       if (socket) {
+         socket.on("callInfo", (data) => {
+            setCallInfo(data);
+         });
+
+         if (!callEnded) {
+            socket.on("callData", (data) => {
+               if (data?.callDetails.sender.id === user?._id || data?.callDetails.receiver.id === user?._id) {
+                  endCall();
+               }
+            });
+         }
+
          // Receive Offer
          socket.on("receiveOffer", async ({ sdp }) => {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
@@ -109,24 +114,25 @@ const CallWindow = () => {
          socket.on("receiveAnswer", async ({ sdp }) => {
             await peerConnection.setRemoteDescription(new RTCSessionDescription(sdp));
          });
-         socket.on("endCall", ({ senderId, recipientId }) => {
-            if (senderId === user?._id && recipientId === userId) {
-               // Stop the peer connection and close the video stream
-               if (stream) {
-                  stream.getTracks().forEach((track) => track.stop());
-               }
-               setStream(null);
-               setCallEnded(true);
-               if (localVideoRef.current) {
-                  localVideoRef.current.srcObject = null;
-               }
 
-               // Close the window if allowed
-               setTimeout(() => {
-                  window.close();
-               });
-            }
-         });
+         // socket.on("endCall", ({ senderId, recipientId }) => {
+         //    if (senderId === user?._id && recipientId === userId) {
+         //       // Stop the peer connection and close the video stream
+         //       if (stream) {
+         //          stream.getTracks().forEach((track) => track.stop());
+         //       }
+         //       setStream(null);
+         //       setCallEnded(true);
+         //       if (localVideoRef.current) {
+         //          localVideoRef.current.srcObject = null;
+         //       }
+
+         //       // Close the window if allowed
+         //       setTimeout(() => {
+         //          window.close();
+         //       });
+         //    }
+         // });
       }
 
       peerConnection.ontrack = (event) => {
@@ -148,8 +154,10 @@ const CallWindow = () => {
          peerConnection.ontrack = null;
          socket?.off("receiveOffer");
          socket?.off("receiveAnswer");
+         socket?.off("callInfo");
+         socket?.off("callData");
       };
-   }, [socket]);
+   }, [socket, callInfo]);
 
    // Toggle Mute/Unmute
    const toggleMute = () => {
@@ -167,24 +175,97 @@ const CallWindow = () => {
       }
    };
 
-   // End Call
    const endCall = () => {
-      if (stream) {
-         stream.getTracks().forEach((track) => track.stop());
+      try {
+         // 1. First stop all media tracks
+         if (stream) {
+            stream.getTracks().forEach((track) => {
+               track.stop();
+               track.enabled = false;
+            });
+            setStream(null);
+         }
+
+         // 2. Properly close the RTCPeerConnection
+         if (peerConnection) {
+            // Clear all event handlers first
+            peerConnection.onicecandidate = null;
+            peerConnection.ontrack = null;
+            peerConnection.onnegotiationneeded = null;
+            peerConnection.oniceconnectionstatechange = null;
+            peerConnection.onsignalingstatechange = null;
+            peerConnection.onicegatheringstatechange = null;
+
+            // Close all data channels if any exist
+            if (peerConnection.getDataChannel) {
+               const dataChannel = peerConnection.getDataChannel();
+               if (dataChannel) {
+                  dataChannel.close();
+               }
+            }
+
+            // Remove all transceivers
+            peerConnection.getTransceivers().forEach((transceiver) => {
+               if (transceiver.stop) {
+                  transceiver.stop();
+               }
+            });
+
+            // Remove all senders
+            peerConnection.getSenders().forEach((sender) => {
+               if (sender.track) {
+                  sender.track.stop();
+               }
+            });
+
+            // Finally close the connection
+            peerConnection.close();
+         }
+
+         // 3. Clear video elements
+         if (localVideoRef.current) {
+            localVideoRef.current.srcObject = null;
+         }
+         if (remoteVideoRef.current) {
+            remoteVideoRef.current.srcObject = null;
+         }
+
+         // 4. Update state
+         setCallEnded("ended");
+
+         // 5. Your existing server notification
+         if (callInfo?.callId) {
+            fetch(`http://localhost:3000/call/status`, {
+               method: "PUT",
+               headers: {
+                  "Content-Type": "application/json",
+               },
+               credentials: "include",
+               body: JSON.stringify({ callStatus: "ended", callId: callInfo?.callId }),
+            })
+               .then((response) => response.json())
+               .then((data) => {
+                  setCallData(data);
+                  if (socket) {
+                     socket.emit("callData", data);
+                  }
+               })
+               .catch((error) => {
+                  toast.error("Error updating call status", error);
+               });
+         }
+
+         // 6. Notify other peer
+         if (socket) {
+            socket.emit("endCall", {
+               senderId: user?._id,
+               recipientId: userId,
+               callId: callInfo?.callId,
+            });
+         }
+      } catch (error) {
+         toast.error("Error ending call", error.message);
       }
-      setStream(null);
-      setCallEnded(true);
-      if (localVideoRef.current) {
-         localVideoRef.current.srcObject = null;
-      }
-      // Notify the opponent that the call has ended
-      if (socket) {
-         socket.emit("endCall");
-      }
-      // Close the window if allowed
-      setTimeout(() => {
-         window.close();
-      });
    };
 
    useEffect(() => {
@@ -219,51 +300,71 @@ const CallWindow = () => {
       dragTarget.current.addEventListener("drop", handleDragDrop);
 
       return () => {
-         dragRef.current.removeEventListener("dragstart", handleDragStart);
-         dragTarget.current.removeEventListener("dragover", handleDragOver);
-         dragTarget.current.removeEventListener("dragleave", handleDragLeave);
-         dragTarget.current.removeEventListener("drop", handleDragDrop);
+         if (dragRef.current) {
+            dragRef.current.removeEventListener("dragstart", handleDragStart);
+         }
+         if (dragTarget.current) {
+            dragTarget.current.removeEventListener("dragover", handleDragOver);
+            dragTarget.current.removeEventListener("dragleave", handleDragLeave);
+            dragTarget.current.removeEventListener("drop", handleDragDrop);
+         }
       };
    }, []);
 
    return (
       <div ref={dragTarget} className='relative w-screen h-screen bg-black flex justify-center items-center'>
-         <video ref={remoteVideoRef} autoPlay playsInline className='w-full h-full object-cover '></video>
-         <div ref={dragRef} draggable={true} className='absolute transform bottom-5 right-8 '>
-            <video
-               draggable='true'
-               ref={localVideoRef}
-               autoPlay
-               playsInline
-               className='w-72 h-72  flex object-cover z-50'></video>
-         </div>
+         {!callEnded ? (
+            <>
+               <video ref={remoteVideoRef} autoPlay playsInline className='w-full h-full object-cover '></video>
+               <div ref={dragRef} draggable={true} className='absolute transform bottom-5 right-8 '>
+                  <video
+                     draggable='true'
+                     ref={localVideoRef}
+                     autoPlay
+                     playsInline
+                     className='w-72 h-72  flex object-cover z-50'></video>
+               </div>
 
-         {/* Control Buttons */}
-         <div className='absolute bottom-5 flex gap-4 bg-gray-900 bg-opacity-75 p-3 rounded-lg'>
-            {!callEnded ? (
-               <>
-                  {/* Mute Button */}
-                  <button onClick={toggleMute} className='p-3 bg-gray-700 text-white rounded-lg flex items-center gap-2'>
-                     {isMuted ? <MicOff size={20} /> : <Mic size={20} />}
-                  </button>
+               {/* Control Buttons */}
+               <div className='absolute bottom-5 flex gap-4 bg-gray-900 bg-opacity-75 p-3 rounded-lg'>
+                  <>
+                     {/* Mute Button */}
+                     <button onClick={toggleMute} className='p-3 bg-gray-700 text-white rounded-lg flex items-center gap-2'>
+                        {isMuted ? <MicOff size={20} /> : <Mic size={20} />}
+                     </button>
 
-                  {/* Video On/Off Button */}
-                  <button onClick={toggleVideo} className='p-3 bg-gray-700 text-white rounded-lg flex items-center gap-2'>
-                     {isVideoOn ? <Video size={20} /> : <VideoOff size={20} />}
-                  </button>
+                     {/* Video On/Off Button */}
+                     <button onClick={toggleVideo} className='p-3 bg-gray-700 text-white rounded-lg flex items-center gap-2'>
+                        {isVideoOn ? <Video size={20} /> : <VideoOff size={20} />}
+                     </button>
 
-                  {/* End Call Button */}
-                  <button onClick={endCall} className='p-3 bg-red-600 text-white rounded-lg flex items-center gap-2'>
-                     <PhoneOff size={20} />
-                  </button>
-               </>
-            ) : (
-               /* Restart Call Button */
-               <button onClick={startCall} className='p-3 bg-green-600 text-white rounded-lg flex items-center gap-2'>
-                  <RefreshCcw size={20} /> Restart Call
-               </button>
-            )}
-         </div>
+                     {/* End Call Button */}
+                     <button onClick={endCall} className='p-3 bg-red-600 text-white rounded-lg flex items-center gap-2'>
+                        <PhoneOff size={20} />
+                     </button>
+                  </>
+               </div>
+            </>
+         ) : (
+            <>
+               <div className='flex flex-col items-center justify-center text-white h-full w-full bg-gradient-to-b from-gray-900 to-black'>
+                  <div className='bg-gray-800 bg-opacity-70 p-8 rounded-2xl shadow-lg max-w-md w-full text-center animate-fade-in-up'>
+                     <h1 className='text-3xl font-bold mb-4 text-red-500'>📞 Call Ended</h1>
+
+                     <p className='text-lg mb-2'>Thanks for the conversation!</p>
+                     <p className='text-md text-gray-300'>
+                        ⏱ Call Duration: <span className='font-semibold'>{callData?.callDetails.callDuration || "00:00"}</span>
+                     </p>
+
+                     <button
+                        onClick={() => (window.location.href = "/")} // Redirect to home or call history
+                        className='mt-6 px-6 py-2 bg-blue-600 hover:bg-blue-700 transition rounded-full shadow text-white font-medium'>
+                        Back to Home
+                     </button>
+                  </div>
+               </div>
+            </>
+         )}
       </div>
    );
 };

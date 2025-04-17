@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../../context/AuthProvider";
 import useSocket from "../../../hooks/useSocket";
 import { PhotoProvider, PhotoView } from "react-photo-view";
@@ -7,8 +7,11 @@ import "react-photo-view/dist/react-photo-view.css";
 const Chat = () => {
    const socket = useSocket();
    const { user, currentConversationId } = useContext(AuthContext);
+   const dropdownRef = useRef();
 
    const [messages, setMessages] = useState([]);
+
+   const [options, setOptions] = useState(false);
 
    useEffect(() => {
       if (!socket || !currentConversationId) return;
@@ -71,6 +74,19 @@ const Chat = () => {
       }
    };
 
+   useEffect(() => {
+      const handleClickOutside = (event) => {
+         if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+            setOptions(false);
+         }
+      };
+
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+         document.removeEventListener("mousedown", handleClickOutside);
+      };
+   }, []);
+
    return (
       <div className='py-10'>
          {user?._id && messages?.length > 0 ? (
@@ -129,16 +145,48 @@ const Chat = () => {
                                  </PhotoProvider>
                               )}
                            </div>
-                           {user?._id == msg.sender.id ? (
-                              <div className='absolute bottom-0 right-2 hidden group-hover:flex flex-col items-center'>
-                                 <button
-                                    onClick={() => deleteMessage(currentConversationId, msg._id)}
-                                    className='p-1 bg-gray-200 rounded-full hover:bg-red-500 hover:text-white transition relative group'>
-                                    delete &#x22EE;
-                                 </button>
+                           {user?._id == msg.sender.id && (
+                              <div className='absolute top-1 right-2 group' ref={dropdownRef}>
+                                 <div
+                                    onClick={() => setOptions(!options)}
+                                    className='text-[20px] text-white rotate-90 cursor-pointer select-none hidden group-hover:block'>
+                                    &#x22EE;
+                                 </div>
+                                 {options && (
+                                    <div className='bg-white w-[250px] absolute top-6 right-0 p-2 rounded-xl shadow-xl z-50'>
+                                       <ul className='space-y-1'>
+                                          <li>
+                                             <button
+                                                onClick={() => editMessage(currentConversationId, msg._id)}
+                                                className='w-full flex items-center gap-2 px-3 py-2 rounded-md hover:bg-blue-100 transition text-sm text-gray-700 hover:text-blue-600'>
+                                                ✏️ Edit
+                                             </button>
+                                          </li>
+                                          <li>
+                                             <button
+                                                onClick={() => deleteMessage(currentConversationId, msg._id)}
+                                                className='w-full flex items-center gap-2 px-3 py-2 rounded-md hover:bg-red-100 transition text-sm text-gray-700 hover:text-red-600'>
+                                                🗑️ Delete
+                                             </button>
+                                          </li>
+                                          <li>
+                                             <button
+                                                onClick={() => forwardMessage(currentConversationId, msg._id)}
+                                                className='w-full flex items-center gap-2 px-3 py-2 rounded-md hover:bg-green-100 transition text-sm text-gray-700 hover:text-green-600'>
+                                                📤 Forward
+                                             </button>
+                                          </li>
+                                          <li>
+                                             <button
+                                                onClick={() => replyMessage(currentConversationId, msg._id)}
+                                                className='w-full flex items-center gap-2 px-3 py-2 rounded-md hover:bg-purple-100 transition text-sm text-gray-700 hover:text-purple-600'>
+                                                💬 Reply
+                                             </button>
+                                          </li>
+                                       </ul>
+                                    </div>
+                                 )}
                               </div>
-                           ) : (
-                              <></>
                            )}
                         </div>
                      </div>

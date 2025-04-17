@@ -14,6 +14,7 @@ import Settings from "../features/settings/Settings";
 import Favourite from "../features/favourite/Favourite";
 import CallWindow from "../features/callPage/CallWindow";
 
+
 const router = createBrowserRouter([
    {
       path: "/",
@@ -69,6 +70,7 @@ const router = createBrowserRouter([
             path: "favourite",
             element: <Favourite />,
          },
+
       ],
    },
    {
