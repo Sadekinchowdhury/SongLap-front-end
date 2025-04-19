@@ -15,7 +15,7 @@ const SideMenue = () => {
             <div className='flex justify-center items-center  py-10'>
                <Link to={"/message/settings"}>
                   <img
-                     className='w-[50px] h-[50px] rounded-[50%] border-4 border-[var(--primary-color)]'
+                     className='w-10 h-10 md:w-[50px] md:h-[50px] rounded-[50%] border-4 border-[var(--primary-color)]'
                      src={`http://localhost:3000/uploads/avatar/${user?.avatar}`}
                      alt=''
                   />
@@ -27,7 +27,7 @@ const SideMenue = () => {
                      <li
                         key={item.id}
                         onClick={() => setShowBorder(item.id)}
-                        className={`mt-10 ${showborder == item.id ? "border-r-2 border-r-blue-700" : ""}`}>
+                        className={`mt-4 md:mt-10 ${showborder == item.id ? "border-r-2 border-r-blue-700" : ""}`}>
                         <Link to={item.path} key={item.name} className=''>
                            {item.icon}
                         </Link>
@@ -42,7 +42,7 @@ const SideMenue = () => {
                className={`cursor-pointer mt-10 ${showborder == 6 ? "border-r-2 border-r-blue-700" : ""}`}>
                <ThemeToggle />
             </li>
-            <li className='cursor-pointer mt-10'>
+            <li className='cursor-pointer mt-4 md:mt-10'>
                <LogOut
                   onClick={handleLogOut}
                   className='w-10 h-10 inline-block p-3 bg-[#eff1f2] rounded-full transition duration-300 hover:bg-[#d3d8db]'

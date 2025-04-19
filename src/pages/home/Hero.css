@@ -33,6 +33,38 @@
    animation: fade-frames 200ms infinite, scale-frames 2s infinite;
 }
 
+.video-btn {
+   position: relative;
+   overflow: hidden;
+   z-index: 1;
+   border: 1px solid;
+}
+
+.video-btn:hover {
+   color: white;
+}
+
+.video-btn:before {
+   content: "";
+   display: block;
+   width: 0px;
+   height: 64px;
+   opacity: 0;
+   transition: 1s;
+   position: absolute;
+   top: 0;
+   left: 0;
+   z-index: -1;
+}
+
+.video-btn:hover:before {
+   content: "";
+   display: block;
+   background: #1447e6;
+   width: 300px;
+   height: 300px;
+   opacity: 1;
+}
 @keyframes fade-frames {
    0% {
       opacity: 1;

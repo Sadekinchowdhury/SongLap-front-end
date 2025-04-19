@@ -87,6 +87,8 @@ const Chat = () => {
       };
    }, []);
 
+   
+
    return (
       <div className='py-10'>
          {user?._id && messages?.length > 0 ? (
@@ -99,6 +101,8 @@ const Chat = () => {
                         className={`flex gap-4  mb-3 ${
                            user._id === msg.sender.id ? "justify-end items-end text-right" : "justify-start items-start text-left"
                         }`}>
+
+                           {console.log(msg)}
                         <div className={`max-w-[70%] relative group`}>
                            <div className={`${msg.sender.id === user._id ? "text-left" : "text-right flex"}`}>
                               {" "}
@@ -132,6 +136,7 @@ const Chat = () => {
                                  <></>
                               )}
                            </div>
+                           {/*View Full Width Image*/}
                            <div className='w-full'>
                               {msg.attachment && (
                                  <PhotoProvider>
@@ -148,11 +153,11 @@ const Chat = () => {
                            {user?._id == msg.sender.id && (
                               <div className='absolute top-1 right-2 group' ref={dropdownRef}>
                                  <div
-                                    onClick={() => setOptions(!options)}
+                                    onClick={() => setOptions(msg?._id)}
                                     className='text-[20px] text-white rotate-90 cursor-pointer select-none hidden group-hover:block'>
                                     &#x22EE;
                                  </div>
-                                 {options && (
+                                 {options == msg._id && (
                                     <div className='bg-white w-[250px] absolute top-6 right-0 p-2 rounded-xl shadow-xl z-50'>
                                        <ul className='space-y-1'>
                                           <li>

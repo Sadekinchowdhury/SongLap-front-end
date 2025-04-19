@@ -177,7 +177,7 @@ const Register = () => {
 
                   {/* Mobile and User Role */}
                   <div className='py-4 flex gap-x-6 items-center'>
-                     <div className='basis-[50%]'>
+                     <div className='w-full'>
                         <label className='text-[18px] font-semibold text-[var(--text-color)]'>Mobile</label>
                         <input
                            type='text'
@@ -189,17 +189,7 @@ const Register = () => {
                            required
                         />
                      </div>
-                     <div className='basis-[50%]'>
-                        <label className='text-lg font-semibold text-[var(--text-color)]'>User Role</label>
-                        <select
-                           name='role'
-                           value={formData.role}
-                           onChange={handleChange}
-                           className='w-full p-2 border rounded-lg bg-white text-gray-700 shadow-sm focus:ring-2 focus:ring-blue-500'>
-                           <option value='user'>User</option>
-                           <option value='admin'>Admin</option>
-                        </select>
-                     </div>
+                       
                   </div>
 
                   {/* File Upload */}

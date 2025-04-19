@@ -46,13 +46,13 @@ const Hero = () => {
    }, []);
 
    return (
-      <div className='relative  '>
+      <div className='relative my-4'>
          <div className='container'>
             <img src='/src/assets/bg.png' alt='' className='background' />
             <div className='circle-container'></div>
          </div>
 
-         <div className='max-w-[1200px] mx-auto block md:flex justify-between items-center pt-2 md:pt-16 lg:pt-24 px-6 text-center md:text-left'>
+         <div className='max-w-[1200px] mx-auto block lg:flex justify-between items-center pt-2 md:pt-16 lg:pt-24 px-6 text-center lg:text-left'>
             {/* Left Text Section */}
             <motion.div initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}>
                <motion.h1
@@ -77,11 +77,10 @@ const Hero = () => {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className='flex items-center md:justify-start justify-center mt-6'>
-                  
+                  className='flex items-center lg:justify-start justify-center my-6'>
                   <Link
                      to={"/message"}
-                     className='mr-4 border border-white rounded-3xl px-[40px] py-3 text-white text-[20px] font-semibold  bg-blue-600 hover:bg-blue-700 transition'>
+                     className='mr-4 border border-white rounded-3xl py-[6px] px-[21px] md:px-[40px] md:py-3 text-white text-[14px] md:text-[20px] font-semibold hover:text-gray-100 bg-blue-600 hover:bg-blue-700 transition'>
                      {/* Start Chat Icon */}
                      <svg
                         stroke='currentColor'
@@ -92,7 +91,7 @@ const Hero = () => {
                         height='28'
                         width='28'
                         xmlns='http://www.w3.org/2000/svg'
-                        className='inline mr-2'>
+                        className='inline mr-2 w-[19px] md:w-[28px] h-[19px] md:h-[28px]'>
                         <path
                            strokeLinecap='round'
                            strokeLinejoin='round'
@@ -101,10 +100,9 @@ const Hero = () => {
                      </svg>
                      Start Chat
                   </Link>
-
                   <Link
                      to={"/message"}
-                     className='border rounded-3xl px-[40px] py-3 text-[var(--text-color)] text-[20px] font-semibold hover:border-[1px solid] transition'>
+                     className='video-btn border rounded-3xl py-[6px] px-[21px] md:px-[40px] md:py-3 text-[var(--text-color)] text-[14px] md:text-[20px] font-semibold hover:border-[1px solid] transition'>
                      {/* Video Call Icon */}
                      <svg
                         stroke='currentColor'
@@ -112,10 +110,9 @@ const Hero = () => {
                         strokeWidth='0'
                         viewBox='0 0 20 20'
                         aria-hidden='true'
-                        height='28'
-                        width='28'
+                        
                         xmlns='http://www.w3.org/2000/svg'
-                        className='mr-2 inline'>
+                        className='mr-2 inline w-[19px] md:w-[28px] h-[19px] md:h-[28px]'>
                         <path d='M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z' />
                      </svg>
                      Video Call

@@ -13,6 +13,7 @@ import Conversation from "../features/chat/conversation/Conversation";
 import Settings from "../features/settings/Settings";
 import Favourite from "../features/favourite/Favourite";
 import CallWindow from "../features/callPage/CallWindow";
+import MobileChat from "../features/chat/mobileChat/MobileChat";
 
 
 const router = createBrowserRouter([
@@ -61,6 +62,13 @@ const router = createBrowserRouter([
          {
             path: "",
             element: <Conversation />,
+            children:[
+               {
+                  path: ":id",
+                  element:  <MobileChat/>
+               }
+            ]
+         
          },
          {
             path: "settings",

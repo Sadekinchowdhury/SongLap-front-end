@@ -38,7 +38,7 @@ function Navbar() {
                   {!user ? (
                      <NavLink to='/login'>
                         {" "}
-                        <UserIcon />{" "}
+                        <UserIcon className="hover:text-blue-600 transition duration-75" />{" "}
                      </NavLink>
                   ) : (
                      <button onClick={handleLogOut} className='mx-2 hover:text-blue-600 transition duration-75'>

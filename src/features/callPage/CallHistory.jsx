@@ -56,14 +56,47 @@ const CallHistory = () => {
                            <div className='text-sm font-semibold text-[var--(text-color)]'>
                               {user?._id === call.sender.id ? (
                                  <>
-                                    {" "}
-                                    <ArrowLeftIcon className='w-8 h-3 fill-red-800  text-[var(--text-color)] mr-1  inline' />{" "}
-                                    <span className='text-[var(--text-color)]'>{call.receiver.name}</span>
+                                    <span className='text-[var(--text-color)] mr-3'>{call.receiver.name}</span>
+                                    <svg
+                                       xmlns='http://www.w3.org/2000/svg'
+                                       version='1.1'
+                                       xmlnsXlink='http://www.w3.org/1999/xlink'
+                                       width={14}
+                                       height={14}
+                                       viewBox='0 0 48 48'
+                                       className="inline rotate-[128deg]"
+                                       xmlSpace='preserve'>
+                                       <g>
+                                          <path
+                                             fill='green'
+                                             d='m.88 16.598 9.992 9.992a2.98 2.98 0 1 0 4.215-4.216l-3.037-3.037c20.384-1.003 33.639 12.679 33.762 26.703.004.507.716.61.874.144 4.922-14.579-4.03-32.89-27.427-36.201a116.18 116.18 0 0 0-6.868-.681l2.697-2.697a2.98 2.98 0 1 0-4.215-4.215L.88 12.383a2.98 2.98 0 0 0 0 4.215z'
+                                             opacity='1'
+                                             data-original='#54bbff'
+                                          />
+                                       </g>
+                                    </svg>
                                  </>
                               ) : (
                                  <>
-                                    <span className='text-[var(--text-color)]'>{call.sender.name}</span>{" "}
-                                    <ArrowRightIcon className='w-8 h-3 fill-green-800   mr-1  inline' />
+                                    <span className='text-[var(--text-color)] mr-3'>{call.sender.name}</span>{" "}
+                                    <svg
+                                       xmlns='http://www.w3.org/2000/svg'
+                                       version='1.1'
+                                       xmlnsXlink='http://www.w3.org/1999/xlink'
+                                      width={14}
+                                      height={14}
+                                       viewBox='0 0 48 48'
+                                       className="inline"
+                                       xmlSpace='preserve'>
+                                       <g>
+                                          <path
+                                             fill='red'
+                                             d='m.88 16.598 9.992 9.992a2.98 2.98 0 1 0 4.215-4.216l-3.037-3.037c20.384-1.003 33.639 12.679 33.762 26.703.004.507.716.61.874.144 4.922-14.579-4.03-32.89-27.427-36.201a116.18 116.18 0 0 0-6.868-.681l2.697-2.697a2.98 2.98 0 1 0-4.215-4.215L.88 12.383a2.98 2.98 0 0 0 0 4.215z'
+                                             opacity='1'
+                                             data-original='#54bbff'
+                                          />
+                                       </g>
+                                    </svg>
                                  </>
                               )}
                            </div>
